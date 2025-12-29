@@ -185,10 +185,16 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
               e.currentTarget.style.transform = 'translateY(-2px)';
+              // Change Yes text color to white on hover
+              const yesText = e.currentTarget.querySelector('.yes-text');
+              if (yesText) (yesText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.boxShadow = 'var(--shadow-4)';
               e.currentTarget.style.transform = 'translateY(0)';
+              // Reset Yes text color
+              const yesText = e.currentTarget.querySelector('.yes-text');
+              if (yesText) (yesText as HTMLElement).style.color = 'var(--card-foreground)';
             }}
           >
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9">
@@ -235,10 +241,11 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
                   </div>
                 </div>
                 <p 
-                  className="font-sans text-nowrap text-card-foreground whitespace-pre"
+                  className="font-sans text-nowrap text-card-foreground whitespace-pre yes-text"
                   style={{
                     fontSize: 'var(--text-s)',
                     fontWeight: 'var(--font-weight-medium)',
+                    transition: 'color 300ms ease-out',
                   }}
                 >
                   Yes
@@ -249,7 +256,8 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
                 style={{ 
                   fontSize: 'var(--text-xs)',
                   fontWeight: 'var(--font-weight-medium)',
-                  color: 'var(--card-foreground)',
+                  color: 'var(--black-a8)',
+                  transition: 'color 300ms ease-out',
                 }}
               >
                 {market.prediction.yesPercentage}%
@@ -274,10 +282,16 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
               e.currentTarget.style.transform = 'translateY(-2px)';
+              // Change No text color to white on hover
+              const noText = e.currentTarget.querySelector('.no-text');
+              if (noText) (noText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.boxShadow = 'var(--shadow-4)';
               e.currentTarget.style.transform = 'translateY(0)';
+              // Reset No text color
+              const noText = e.currentTarget.querySelector('.no-text');
+              if (noText) (noText as HTMLElement).style.color = 'var(--card-foreground)';
             }}
           >
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9">
@@ -324,10 +338,11 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
                   </div>
                 </div>
                 <p 
-                  className="font-sans text-nowrap text-card-foreground whitespace-pre"
+                  className="font-sans text-nowrap text-card-foreground whitespace-pre no-text"
                   style={{
                     fontSize: 'var(--text-s)',
                     fontWeight: 'var(--font-weight-medium)',
+                    transition: 'color 300ms ease-out',
                   }}
                 >
                   No
@@ -338,7 +353,8 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
                 style={{ 
                   fontSize: 'var(--text-xs)',
                   fontWeight: 'var(--font-weight-medium)',
-                  color: 'var(--card-foreground)',
+                  color: 'var(--black-a8)',
+                  transition: 'color 300ms ease-out',
                 }}
               >
                 {market.prediction.noPercentage}%

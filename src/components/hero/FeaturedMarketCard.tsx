@@ -279,10 +279,16 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
                     e.currentTarget.style.transform = 'translateY(-2px)';
+                    // Change Yes text color to white on hover
+                    const yesText = e.currentTarget.querySelector('.yes-text');
+                    if (yesText) (yesText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)';
                     e.currentTarget.style.transform = 'translateY(0)';
+                    // Reset Yes text color
+                    const yesText = e.currentTarget.querySelector('.yes-text');
+                    if (yesText) (yesText as HTMLElement).style.color = 'var(--card-foreground)';
                   }}
                 >
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">
@@ -323,7 +329,7 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                         </div>
                       </div>
                       <p 
-                        className="font-sans text-nowrap whitespace-pre"
+                        className="font-sans text-nowrap whitespace-pre yes-text"
                         style={{ 
                           fontSize: 'var(--text-s)',
                           fontWeight: 'var(--font-weight-medium)',
@@ -339,7 +345,8 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                       style={{ 
                         fontSize: 'var(--text-xs)',
                         fontWeight: 'var(--font-weight-medium)',
-                        color: 'var(--card-foreground)' 
+                        color: 'var(--black-a8)',
+                        transition: 'color 300ms ease-out',
                       }}
                     >
                       {market.prediction.yesPercentage}%
@@ -360,10 +367,16 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
                     e.currentTarget.style.transform = 'translateY(-2px)';
+                    // Change No text color to white on hover
+                    const noText = e.currentTarget.querySelector('.no-text');
+                    if (noText) (noText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)';
                     e.currentTarget.style.transform = 'translateY(0)';
+                    // Reset No text color
+                    const noText = e.currentTarget.querySelector('.no-text');
+                    if (noText) (noText as HTMLElement).style.color = 'var(--card-foreground)';
                   }}
                 >
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">
@@ -404,7 +417,7 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                         </div>
                       </div>
                       <p 
-                        className="font-sans text-nowrap whitespace-pre"
+                        className="font-sans text-nowrap whitespace-pre no-text"
                         style={{ 
                           fontSize: 'var(--text-s)',
                           fontWeight: 'var(--font-weight-medium)',
@@ -420,7 +433,8 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                       style={{ 
                         fontSize: 'var(--text-xs)',
                         fontWeight: 'var(--font-weight-medium)',
-                        color: 'var(--card-foreground)' 
+                        color: 'var(--black-a8)',
+                        transition: 'color 300ms ease-out',
                       }}
                     >
                       {market.prediction.noPercentage}%

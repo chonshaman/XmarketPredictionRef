@@ -197,10 +197,16 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
                 e.currentTarget.style.transform = 'translateY(-2px)';
+                // Change Yes text color to white on hover
+                const yesText = e.currentTarget.querySelector('.yes-text');
+                if (yesText) (yesText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-4)';
                 e.currentTarget.style.transform = 'translateY(0)';
+                // Reset Yes text color
+                const yesText = e.currentTarget.querySelector('.yes-text');
+                if (yesText) (yesText as HTMLElement).style.color = 'var(--card-foreground)';
               }}
             >
               {/* Animated circle that scales from right to left, clipped by button */}
@@ -244,7 +250,7 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
                       </div>
                     </div>
                     <p 
-                      className="font-sans text-nowrap text-card-foreground whitespace-pre"
+                      className="font-sans text-nowrap text-card-foreground whitespace-pre yes-text"
                       style={{
                         fontSize: 'var(--text-s)',
                         fontWeight: 'var(--font-weight-medium)',
@@ -255,11 +261,13 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
                     </p>
                   </div>
                   <p 
-                    className="font-sans text-card-foreground text-nowrap whitespace-pre"
+                    className="font-sans text-nowrap whitespace-pre"
                     style={{
                       fontSize: 'var(--text-xs)',
                       fontWeight: 'var(--font-weight-medium)',
-                      lineHeight: '20px'
+                      lineHeight: '20px',
+                      color: 'var(--black-a8)',
+                      transition: 'color 300ms ease-out',
                     }}
                   >
                     {market.prediction.yesPercentage}%
@@ -281,10 +289,16 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
                 e.currentTarget.style.transform = 'translateY(-2px)';
+                // Change No text color to white on hover
+                const noText = e.currentTarget.querySelector('.no-text');
+                if (noText) (noText as HTMLElement).style.color = 'var(--side-bar-hold-white)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-4)';
                 e.currentTarget.style.transform = 'translateY(0)';
+                // Reset No text color
+                const noText = e.currentTarget.querySelector('.no-text');
+                if (noText) (noText as HTMLElement).style.color = 'var(--card-foreground)';
               }}
             >
               {/* Animated circle that scales from right to left, clipped by button */}
@@ -328,7 +342,7 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
                       </div>
                     </div>
                     <p 
-                      className="font-sans text-nowrap text-card-foreground whitespace-pre"
+                      className="font-sans text-nowrap text-card-foreground whitespace-pre no-text"
                       style={{
                         fontSize: 'var(--text-s)',
                         fontWeight: 'var(--font-weight-medium)',
@@ -339,11 +353,13 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
                     </p>
                   </div>
                   <p 
-                    className="font-sans text-card-foreground text-nowrap whitespace-pre"
+                    className="font-sans text-nowrap whitespace-pre"
                     style={{
                       fontSize: 'var(--text-xs)',
                       fontWeight: 'var(--font-weight-medium)',
-                      lineHeight: '20px'
+                      lineHeight: '20px',
+                      color: 'var(--black-a8)',
+                      transition: 'color 300ms ease-out',
                     }}
                   >
                     {market.prediction.noPercentage}%

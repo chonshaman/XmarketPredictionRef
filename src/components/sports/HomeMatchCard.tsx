@@ -124,7 +124,7 @@ const TeamRow = memo(({ code, name, color, price, isActive }: TeamRowProps) => (
       style={{
         fontSize: isActive ? 'var(--text-sm)' : 'var(--text-xs)',
         fontWeight: 'var(--font-weight-medium)',
-        color: 'var(--card-foreground)',
+        color: isActive ? 'var(--card-foreground)' : 'var(--black-a8)',
         lineHeight: '20px',
         textShadow: isActive && color
           ? `0 0 8px ${color}, 0 0 16px ${color}80`
