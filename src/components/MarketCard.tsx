@@ -1,6 +1,6 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import svgPaths from '../imports/svg-08dg7pjb6g';
-import { useState, useRef, lazy, Suspense } from 'react';
+import { useState, useRef, lazy, Suspense, memo, useCallback } from 'react';
 // Lazy load QuickBuyModal since it's only shown on demand
 const QuickBuyModal = lazy(() => import('./QuickBuyModal').then(module => ({ default: module.QuickBuyModal })));
 import { motion, AnimatePresence } from 'motion/react';
@@ -12,7 +12,7 @@ interface MarketCardProps extends Market {
   onClick?: () => void;
 }
 
-export function MarketCard(props: MarketCardProps) {
+export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
   const { onClick, ...market } = props;
   
   const [showQuickBuy, setShowQuickBuy] = useState(false);
@@ -23,13 +23,13 @@ export function MarketCard(props: MarketCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const handleSuccess = () => {
+  const handleSuccess = useCallback(() => {
     setShowSuccessMessage(true);
     // Hide message after 5 seconds
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 5000);
-  };
+  }, []);
 
   const handleYesClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -80,7 +80,7 @@ export function MarketCard(props: MarketCardProps) {
   // Extract data from market object
   const avatars = market.recentUsers?.map(u => u.initials) || ["CN", "LA"];
   const avatarColors = market.recentUsers?.map(u => u.color) || ["#8145b5", "#16433c"];
-  const comments = market.stats.commentsFormatted ? `${market.stats.commentsFormatted} comments` : "+100 comments";
+  const comments = market.stats?.commentsFormatted ? `${market.stats.commentsFormatted} comments` : "+100 comments";
   const hasMultipleOutcomes = market.outcomes && market.outcomes.length > 0;
 
   return (
@@ -206,7 +206,7 @@ export function MarketCard(props: MarketCardProps) {
               {/* Animated circle that scales from right to left, clipped by button */}
               <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">
                 <div 
-                  className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/yes:scale-[6] group-hover/yes:-translate-x-1/2"
+                  className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/yes:scale-[10] group-hover/yes:-translate-x-1/2"
                   style={{ backgroundColor: 'var(--chart-1-hover)' }}
                 />
               </div>
@@ -290,7 +290,7 @@ export function MarketCard(props: MarketCardProps) {
               {/* Animated circle that scales from right to left, clipped by button */}
               <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">
                 <div 
-                  className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/no:scale-[6] group-hover/no:-translate-x-1/2"
+                  className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/no:scale-[10] group-hover/no:-translate-x-1/2"
                   style={{ backgroundColor: 'var(--chart-2-hover)' }}
                 />
               </div>
@@ -463,4 +463,4 @@ export function MarketCard(props: MarketCardProps) {
     </AnimatePresence>
     </>
   );
-}
+});

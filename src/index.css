@@ -1556,6 +1556,10 @@
     max-width: 1280px;
   }
 
+  .max-w-\[1296px\] {
+    max-width: 1296px;
+  }
+
   .max-w-\[calc\(100\%-2rem\)\] {
     max-width: calc(100% - 2rem);
   }
@@ -2682,6 +2686,10 @@
     padding-right: 6px;
   }
 
+  .pb-0 {
+    padding-bottom: calc(var(--spacing) * 0);
+  }
+
   .pb-1\.5 {
     padding-bottom: calc(var(--spacing) * 1.5);
   }
@@ -3384,6 +3392,12 @@
   }
 
   @media (hover: hover) {
+    .group-hover\/no\:scale-\[10\]:is(:where(.group\/no):hover *) {
+      scale: 10;
+    }
+  }
+
+  @media (hover: hover) {
     .group-hover\/yes\:-translate-x-1\/2:is(:where(.group\/yes):hover *) {
       --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
       translate: var(--tw-translate-x) var(--tw-translate-y);
@@ -3393,6 +3407,12 @@
   @media (hover: hover) {
     .group-hover\/yes\:scale-\[6\]:is(:where(.group\/yes):hover *) {
       scale: 6;
+    }
+  }
+
+  @media (hover: hover) {
+    .group-hover\/yes\:scale-\[10\]:is(:where(.group\/yes):hover *) {
+      scale: 10;
     }
   }
 

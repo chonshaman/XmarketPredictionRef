@@ -1,6 +1,6 @@
 import type { MarketOutcome } from '../data/markets';
 import svgPaths from '../imports/svg-08dg7pjb6g';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 interface OutcomeButtonsProps {
   outcomes: MarketOutcome[];
@@ -14,7 +14,7 @@ interface OutcomeButtonsProps {
  * Each outcome is shown as a row with the name on the left and Yes/No buttons on the right.
  * Maximum 2 rows visible, scrollable vertically if more outcomes.
  */
-export function OutcomeButtons({ outcomes, onOutcomeClick }: OutcomeButtonsProps) {
+export const OutcomeButtons = memo(function OutcomeButtons({ outcomes, onOutcomeClick }: OutcomeButtonsProps) {
   return (
     <div className="flex flex-col gap-[6px] sm:gap-[8px]">
       {outcomes.map((outcome) => (
@@ -27,7 +27,7 @@ export function OutcomeButtons({ outcomes, onOutcomeClick }: OutcomeButtonsProps
       ))}
     </div>
   );
-}
+});
 
 interface OutcomeRowProps {
   outcome: MarketOutcome;
@@ -87,7 +87,7 @@ function OutcomeRow({ outcome, onYesClick, onNoClick }: OutcomeRowProps) {
           {/* Animated circle that scales from right to left, clipped by button */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[30px] h-[30px] pointer-events-none">
             <div 
-              className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/yes:scale-[6] group-hover/yes:-translate-x-1/2"
+              className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/yes:scale-[10] group-hover/yes:-translate-x-1/2"
               style={{ backgroundColor: 'var(--chart-1-hover)' }}
             />
           </div>
@@ -158,7 +158,7 @@ function OutcomeRow({ outcome, onYesClick, onNoClick }: OutcomeRowProps) {
           {/* Animated circle that scales from right to left, clipped by button */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[30px] h-[30px] pointer-events-none">
             <div 
-              className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/no:scale-[6] group-hover/no:-translate-x-1/2"
+              className="absolute inset-0 rounded-full scale-0 transition-all duration-500 ease-out group-hover/no:scale-[10] group-hover/no:-translate-x-1/2"
               style={{ backgroundColor: 'var(--chart-2-hover)' }}
             />
           </div>

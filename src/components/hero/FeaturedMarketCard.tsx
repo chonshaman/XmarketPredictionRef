@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { Bookmark, X } from "lucide-react";
 import { cn } from "../ui/utils";
@@ -15,7 +15,7 @@ interface FeaturedMarketCardProps extends Market {
   onMarketSelect?: (market: Market) => void;
 }
 
-export function FeaturedMarketCard(market: FeaturedMarketCardProps) {
+export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: FeaturedMarketCardProps) {
   const { isQuickBuyOpen = false, onOpenQuickBuy, onCloseQuickBuy, onMarketSelect } = market;
   const [selectedPrediction, setSelectedPrediction] = useState<'yes' | 'no'>('yes');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -915,4 +915,4 @@ export function FeaturedMarketCard(market: FeaturedMarketCardProps) {
       </AnimatePresence>
     </div>
   );
-}
+});

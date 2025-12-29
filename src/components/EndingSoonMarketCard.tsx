@@ -1,6 +1,6 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import svgPaths from '../imports/svg-08dg7pjb6g';
-import { useState, useRef, lazy, Suspense } from 'react';
+import { useState, useRef, lazy, Suspense, memo, useCallback } from 'react';
 // Lazy load QuickBuyModal since it's only shown on demand
 const QuickBuyModal = lazy(() => import('./QuickBuyModal').then(module => ({ default: module.QuickBuyModal })));
 import { motion, AnimatePresence } from 'motion/react';
@@ -10,7 +10,7 @@ interface EndingSoonMarketCardProps extends Market {
   onClick?: () => void;
 }
 
-export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
+export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
   const { onClick, ...market } = props;
   
   const [showQuickBuy, setShowQuickBuy] = useState(false);
@@ -454,4 +454,4 @@ export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
     </AnimatePresence>
     </>
   );
-}
+});

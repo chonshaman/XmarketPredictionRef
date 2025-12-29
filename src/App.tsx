@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense, useMemo } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 // Lazy load page components for optimal code splitting
 const HomePage = lazy(() => import('./components/home/HomePage').then(module => ({ default: module.HomePage })));
 const MarketDetails = lazy(() => import('./components/MarketDetails').then(module => ({ default: module.MarketDetails })));
 const Sports = lazy(() => import('./components/Sports').then(module => ({ default: module.Sports })));
+const Watchlist = lazy(() => import('./components/Watchlist').then(module => ({ default: module.Watchlist })));
 const DesignSystemPage = lazy(() => import('./components/design-system').then(module => ({ default: module.DesignSystemPage })));
 
 import { BalanceProvider } from './contexts/BalanceContext';
@@ -18,8 +19,11 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
 
-  // Combine all markets for search
-  const allMarkets = [...heroCarouselMarkets, ...featuredMarkets, ...endingSoonMarkets, ...multiOutcomeMarkets];
+  // Combine all markets for search - memoized to prevent recreation on every render
+  const allMarkets = useMemo(
+    () => [...heroCarouselMarkets, ...featuredMarkets, ...endingSoonMarkets, ...multiOutcomeMarkets],
+    []
+  );
 
   // Theme management
   useEffect(() => {
@@ -116,6 +120,12 @@ export default function App() {
               ) : currentPage === 'sports' ? (
                 <main className="flex-1 overflow-y-auto overflow-x-hidden">
                   <Sports />
+                </main>
+              ) : currentPage === 'watchlist' ? (
+                <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                  <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
+                    <Watchlist onMarketSelect={handleMarketSelect} />
+                  </div>
                 </main>
               ) : (
                 <main className="flex-1 overflow-y-auto overflow-x-hidden">
