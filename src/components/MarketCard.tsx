@@ -186,12 +186,21 @@ export function MarketCard(props: MarketCardProps) {
           <div className="content-stretch flex gap-[6px] sm:gap-[8px] h-[36px] sm:h-[40px] items-center mb-[10px] sm:mb-[12px] w-full">
             {/* Yes Button */}
             <div 
-              className="basis-0 grow min-h-px min-w-px relative rounded-[var(--radius-input)] shrink-0 overflow-hidden group/yes cursor-pointer" 
+              className="basis-0 grow min-h-px min-w-px relative rounded-[var(--radius-input)] shrink-0 overflow-hidden group/yes cursor-pointer transition-all duration-300" 
               onClick={handleYesClick}
               style={{ 
                 border: '1px solid var(--black-a2)',
                 background: 'var(--side-bar-outline)',
-                boxShadow: 'var(--shadow-4)'
+                boxShadow: 'var(--shadow-4)',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-4)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               {/* Animated circle that scales from right to left, clipped by button */}
@@ -261,12 +270,21 @@ export function MarketCard(props: MarketCardProps) {
 
             {/* No Button */}
             <div 
-              className="basis-0 grow min-h-px min-w-px relative rounded-[var(--radius-input)] shrink-0 overflow-hidden group/no cursor-pointer" 
+              className="basis-0 grow min-h-px min-w-px relative rounded-[var(--radius-input)] shrink-0 overflow-hidden group/no cursor-pointer transition-all duration-300" 
               onClick={handleNoClick}
               style={{ 
                 border: '1px solid var(--black-a2)',
                 background: 'var(--side-bar-outline)',
-                boxShadow: 'var(--shadow-4)'
+                boxShadow: 'var(--shadow-4)',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-4)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               {/* Animated circle that scales from right to left, clipped by button */}

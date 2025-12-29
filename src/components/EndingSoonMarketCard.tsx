@@ -170,7 +170,7 @@ export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
         >
           {/* Yes Button */}
           <div 
-            className="flex-1 relative overflow-hidden group/yes cursor-pointer" 
+            className="flex-1 relative overflow-hidden group/yes cursor-pointer transition-all duration-300" 
             onClick={handleYesClick}
             style={{ 
               border: '1px solid var(--black-a2)',
@@ -180,6 +180,15 @@ export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
               height: '100%',
               display: 'flex',
               alignItems: 'center',
+              transform: 'translateY(0)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = 'var(--shadow-4)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9">
@@ -250,7 +259,7 @@ export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
 
           {/* No Button */}
           <div 
-            className="flex-1 relative overflow-hidden group/no cursor-pointer" 
+            className="flex-1 relative overflow-hidden group/no cursor-pointer transition-all duration-300" 
             onClick={handleNoClick}
             style={{ 
               border: '1px solid var(--black-a2)',
@@ -260,6 +269,15 @@ export function EndingSoonMarketCard(props: EndingSoonMarketCardProps) {
               height: '100%',
               display: 'flex',
               alignItems: 'center',
+              transform: 'translateY(0)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = 'var(--shadow-4)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9">

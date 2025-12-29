@@ -268,12 +268,21 @@ export function FeaturedMarketCard(market: FeaturedMarketCardProps) {
               <div className="flex gap-[6px] sm:gap-[8px] h-[36px] sm:h-[40px]">
                 {/* Yes Button */}
                 <div 
-                  className="flex-1 relative rounded-[var(--radius-input)] overflow-hidden group/yes cursor-pointer" 
+                  className="flex-1 relative rounded-[var(--radius-input)] overflow-hidden group/yes cursor-pointer transition-all duration-300" 
                   onClick={handleYesClick}
                   style={{ 
                     border: '1px solid var(--black-a2)',
                     background: 'var(--side-bar-outline)',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)'
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                    transform: 'translateY(0)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">
@@ -340,12 +349,21 @@ export function FeaturedMarketCard(market: FeaturedMarketCardProps) {
 
                 {/* No Button */}
                 <div 
-                  className="flex-1 relative rounded-[var(--radius-input)] overflow-hidden group/no cursor-pointer" 
+                  className="flex-1 relative rounded-[var(--radius-input)] overflow-hidden group/no cursor-pointer transition-all duration-300" 
                   onClick={handleNoClick}
                   style={{ 
                     border: '1px solid var(--black-a2)',
                     background: 'var(--side-bar-outline)',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)'
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                    transform: 'translateY(0)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[36px] sm:w-[40px] h-[36px] sm:h-[40px]">

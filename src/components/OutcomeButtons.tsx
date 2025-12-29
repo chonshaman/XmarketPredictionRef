@@ -69,16 +69,19 @@ function OutcomeRow({ outcome, onYesClick, onNoClick }: OutcomeRowProps) {
       <div className="flex gap-[6px] sm:gap-[8px] shrink-0">
         {/* Yes Button */}
         <div 
-          className="relative rounded-[var(--radius-input)] overflow-hidden group/yes cursor-pointer" 
+          className="relative rounded-[var(--radius-input)] overflow-hidden group/yes cursor-pointer transition-all duration-300" 
           onClick={onYesClick}
           onMouseEnter={() => setHoveredButton('yes')}
           onMouseLeave={() => setHoveredButton(null)}
           style={{ 
             border: '1px solid var(--black-a2)',
             background: 'var(--side-bar-outline)',
-            boxShadow: 'var(--shadow-4)',
+            boxShadow: hoveredButton === 'yes' 
+              ? '0 8px 16px 0 #5bb98b60, 0 4px 8px 0 #5bb98b40'
+              : 'var(--shadow-4)',
             width: '63px',
-            height: '30px'
+            height: '30px',
+            transform: hoveredButton === 'yes' ? 'translateY(-2px)' : 'translateY(0)'
           }}
         >
           {/* Animated circle that scales from right to left, clipped by button */}
@@ -137,16 +140,19 @@ function OutcomeRow({ outcome, onYesClick, onNoClick }: OutcomeRowProps) {
 
         {/* No Button */}
         <div 
-          className="relative rounded-[var(--radius-input)] overflow-hidden group/no cursor-pointer" 
+          className="relative rounded-[var(--radius-input)] overflow-hidden group/no cursor-pointer transition-all duration-300" 
           onClick={onNoClick}
           onMouseEnter={() => setHoveredButton('no')}
           onMouseLeave={() => setHoveredButton(null)}
           style={{ 
             border: '1px solid var(--black-a2)',
             background: 'var(--side-bar-outline)',
-            boxShadow: 'var(--shadow-4)',
+            boxShadow: hoveredButton === 'no'
+              ? '0 8px 16px 0 #eb8e9060, 0 4px 8px 0 #eb8e9040'
+              : 'var(--shadow-4)',
             width: '63px',
-            height: '30px'
+            height: '30px',
+            transform: hoveredButton === 'no' ? 'translateY(-2px)' : 'translateY(0)'
           }}
         >
           {/* Animated circle that scales from right to left, clipped by button */}
