@@ -85,7 +85,6 @@
     --text-sm: .875rem;
     --text-sm--line-height: calc(1.25 / .875);
     --text-base: 1rem;
-    --text-base--line-height: calc(1.5 / 1);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
@@ -429,6 +428,10 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-family: Inter, sans-serif;
+  }
+
+  .font-sans {
+    font-family: Inter, sans-serif !important;
   }
 
   @media (width <= 640px) {
@@ -2784,11 +2787,6 @@
     line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
 
-  .text-base {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
-  }
-
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
@@ -4725,13 +4723,6 @@
   @media (width >= 40rem) {
     .sm\:text-\[length\:var\(--text-base\)\] {
       font-size: var(--text-base);
-    }
-  }
-
-  @media (width >= 40rem) {
-    .sm\:leading-\[20px\] {
-      --tw-leading: 20px;
-      line-height: 20px;
     }
   }
 

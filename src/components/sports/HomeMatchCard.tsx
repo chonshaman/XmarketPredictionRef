@@ -108,11 +108,11 @@ const TeamRow = memo(({ code, name, color, price, isActive }: TeamRowProps) => (
         isActive={isActive && !!color}
       />
       <span 
-        className="truncate"
+        className="truncate font-sans"
         style={{
           fontSize: 'var(--text-base)',
           fontWeight: 'var(--font-weight-medium)',
-          color: 'var(--card-foreground)',
+          color: 'var(--black-a11)',
           lineHeight: '1.2'
         }}
       >
@@ -120,7 +120,7 @@ const TeamRow = memo(({ code, name, color, price, isActive }: TeamRowProps) => (
       </span>
     </div>
     <span 
-      className="shrink-0 transition-all duration-300"
+      className="shrink-0 transition-all duration-300 font-sans"
       style={{
         fontSize: isActive ? 'var(--text-sm)' : 'var(--text-xs)',
         fontWeight: 'var(--font-weight-medium)',

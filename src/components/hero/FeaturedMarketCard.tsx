@@ -528,7 +528,15 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
               {/* Header with Market Question and Image */}
               <div className="content-stretch flex items-start justify-between mb-[10px] sm:mb-[12px]">
                 <div className="basis-0 content-stretch flex flex-col grow items-start max-h-[80px] min-h-[56px] sm:min-h-[60px] min-w-px pr-2">
-                  <p className="text-base font-semibold leading-[18px] sm:leading-[20px] max-h-[64px] min-h-[56px] sm:min-h-[60px] overflow-ellipsis overflow-hidden text-card-foreground w-full line-clamp-2">
+                  <p 
+                    className="font-sans max-h-[64px] min-h-[56px] sm:min-h-[60px] overflow-ellipsis overflow-hidden w-full line-clamp-2"
+                    style={{
+                      fontSize: 'var(--text-base)',
+                      fontWeight: 'var(--font-weight-medium)',
+                      lineHeight: '20px',
+                      color: 'var(--card-foreground)'
+                    }}
+                  >
                     {market.question}
                   </p>
                 </div>

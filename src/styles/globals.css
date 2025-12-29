@@ -1177,6 +1177,11 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Override Tailwind's font-sans to use Inter */
+  .font-sans {
+    font-family: "Inter", sans-serif !important;
+  }
+
   /* Hide scrollbar on mobile devices */
   @media (max-width: 640px) {
     body,

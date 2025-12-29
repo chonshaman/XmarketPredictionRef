@@ -126,13 +126,12 @@ export function MultiOutcomeMarketCard(market: MultiOutcomeMarketCardProps) {
 
             {/* Question */}
             <h3 
-              className="line-clamp-2 cursor-pointer hover:text-[var(--iris-12)] transition-colors"
+              className="line-clamp-2 cursor-pointer hover:text-[var(--iris-12)] transition-colors font-sans"
               style={{ 
-                fontSize: 'var(--text-l)',
-                fontWeight: 'var(--font-weight-semi-bold)',
-                lineHeight: '1.4',
-                color: 'var(--card-foreground)',
-                fontFamily: 'Inter, sans-serif',
+                fontSize: 'var(--text-base)',
+                fontWeight: 'var(--font-weight-medium)',
+                lineHeight: '24px',
+                color: 'var(--black-a11)',
               }}
               onClick={handleCardClick}
             >

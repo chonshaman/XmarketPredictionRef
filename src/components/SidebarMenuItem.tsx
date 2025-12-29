@@ -27,7 +27,7 @@ export const SidebarMenuItem = React.memo<SidebarMenuItemProps>((({
         background: isActive ? 'var(--card-normal)' : 'transparent',
         border: isActive ? '1px solid var(--black-a1)' : '1px solid transparent',
         color: isActive ? 'var(--iris-10)' : 'var(--card-foreground)',
-        fontWeight: isActive ? 'var(--font-weight-semi-bold)' : 'var(--font-weight-medium)',
+        fontWeight: isActive ? 'var(--font-weight-semi-bold)' : 'var(--font-weight-normal)',
         fontSize: 'var(--text-sm)',
         justifyContent: isCollapsed ? 'center' : 'flex-start',
         boxShadow: isActive ? 'var(--shadow-1)' : 'none',
