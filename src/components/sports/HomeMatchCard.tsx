@@ -120,12 +120,16 @@ const TeamRow = memo(({ code, name, color, price, isActive }: TeamRowProps) => (
       </span>
     </div>
     <span 
-      className="shrink-0"
+      className="shrink-0 transition-all duration-300"
       style={{
-        fontSize: 'var(--text-xs)',
+        fontSize: isActive ? 'var(--text-sm)' : 'var(--text-xs)',
         fontWeight: 'var(--font-weight-medium)',
         color: 'var(--card-foreground)',
-        lineHeight: '20px'
+        lineHeight: '20px',
+        textShadow: isActive && color
+          ? `0 0 8px ${color}, 0 0 16px ${color}80`
+          : 'none',
+        transform: isActive ? 'scale(1.1)' : 'scale(1)'
       }}
     >
       {price}¢
