@@ -93,7 +93,7 @@
     --text-3xl: 1.875rem;
     --text-4xl: 2.25rem;
     --text-5xl: 3rem;
-    --text-5xl--line-height: 1;
+    --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -1335,6 +1335,10 @@
 
   .h-\[82px\] {
     height: 82px;
+  }
+
+  .h-\[120px\] {
+    height: 120px;
   }
 
   .h-\[180px\] {
@@ -2822,11 +2826,6 @@
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
 
-  .text-5xl {
-    font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
-  }
-
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
@@ -2872,6 +2871,10 @@
 
   .text-\[30px\] {
     font-size: 30px;
+  }
+
+  .text-\[67px\] {
+    font-size: 67px;
   }
 
   .text-\[100px\] {

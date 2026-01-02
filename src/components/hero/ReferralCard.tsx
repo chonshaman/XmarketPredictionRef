@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
+import { RiveAnimation } from "../ui/rive-animation";
+import { RiveErrorBoundary } from "../ui/RiveErrorBoundary";
 
 export function ReferralCard() {
   const [copied, setCopied] = useState(false);
+  const [riveError, setRiveError] = useState(false);
   const referralLink = "https://xmarket.app/ref/USER123ABC";
 
   const handleCopy = () => {
@@ -59,16 +62,42 @@ export function ReferralCard() {
     <div 
       className="flex flex-col h-full w-full overflow-hidden relative group"
       style={{ 
-        background: 'radial-gradient(120% 120% at 0% 0%, var(--teal-7) 0%, var(--teal-9) 100%)',
+        background: 'radial-gradient(5% 80% at 100% 100%, rgba(159, 249, 178, 0.5) 0%, rgba(133, 247, 245, 0.28) 26%, rgba(133, 94, 191, 0.13) 48%, rgba(130, 94, 191, 0.05) 72%, rgba(21, 94, 191, 0) 92%), radial-gradient(5% 80% at 0% 100%, rgba(168, 253, 240, 0.5) 0%, rgba(38, 247, 197, 0.34) 26%, rgba(21, 94, 191, 0.13) 48%, rgba(21, 94, 191, 0.05) 72%, rgba(21, 94, 191, 0) 92%), linear-gradient(rgba(6, 27, 55, 0) 70%, rgb(0 26 52 / 3%) 50%, rgba(17, 24, 22, 0.5) 80%, rgba(0, 118, 103, 0.64) 90%, rgba(10, 181, 140, 0.66) 93.5%, rgba(31, 226, 181, 0.79) 96%, rgba(33, 234, 192, 0.75) 96%, rgba(103, 247, 194, 0.78) 97.6%, rgba(104, 248, 195, 0.88) 98.6%, rgba(255, 255, 255, 0.88) 100%), radial-gradient(80% 64% at 96% 4%, rgb(58, 140, 163) 0%, rgb(55, 132, 158) 4%, rgb(44, 117, 138) 24%, rgb(19, 52, 60) 72%, rgb(11, 34, 34) 100%)',
         borderRadius: 'var(--radius-card)'
       }}
     >
       {/* Content Container - Aligned to bottom */}
       <div className="flex-1 p-6 md:p-6 flex flex-col justify-end relative z-10 w-full" style={{ gap: 'var(--gap--1-5rem)' }}>
-        {/* Emoji at top */}
-        <div className="text-5xl mb-2">🎁</div>
+        {/* Rive Animation with Error Boundary */}
+        <div className="w-[120px] h-[120px] flex items-center justify-center -ml-4 relative -mt-4">
+          {!riveError ? (
+            <RiveErrorBoundary 
+              onError={() => setRiveError(true)}
+              fallback={
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full" />
+                  <div className="text-[67px] leading-none relative z-10 animate-bounce">🎁</div>
+                </div>
+              }
+            >
+              <RiveAnimation 
+                src="https://cdn.jsdelivr.net/gh/chonshaman/XmarketPredictionRef@dfc3b00c52f69723bb9ac7895da23fdeed38cd1f/src/components/hero/jumpinggift.riv" 
+                className="min-h-0"
+                onError={() => {
+                  console.warn("Rive load failed");
+                  setRiveError(true);
+                }}
+              />
+            </RiveErrorBoundary>
+          ) : (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full" />
+              <div className="text-[67px] leading-none relative z-10 animate-bounce">🎁</div>
+            </div>
+          )}
+        </div>
         
-        <div className="flex flex-col" style={{ gap: 'var(--gap--0-75rem)' }}>
+        <div className="flex flex-col" style={{ gap: 'var(--gap--0-25rem)' }}>
           <h1 style={{ 
             fontSize: 'var(--text-xl)', 
             fontWeight: 'var(--font-weight-medium)',
@@ -80,12 +109,12 @@ export function ReferralCard() {
             Invite friends
           </h1>
           <p style={{ 
-            fontSize: 'var(--text-base)', 
-            fontWeight: 'var(--font-weight-normal)',
+            fontSize: 'var(--text-s)', 
+            fontWeight: 'var(--font-weight-light)',
             lineHeight: '1.43',
             color: 'var(--side-bar-hold-white)',
             fontFamily: '"Kanit", sans-serif',
-            opacity: 0.9
+            opacity: 0.8
           }}>
             Get $25 for every friend who joins
           </p>

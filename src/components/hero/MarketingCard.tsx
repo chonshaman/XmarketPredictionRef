@@ -11,7 +11,7 @@ export function MarketingCard() {
     <div 
       className="flex flex-col h-full w-full overflow-hidden relative group"
       style={{ 
-        background: 'radial-gradient(5% 80% at 100% 100%, #9fd1f980 0%, #268ef747 26%, #155ebf21 48%, #155ebf0d 72%, #155ebf00 92%), radial-gradient(5% 80% at 0% 100%, #a8dafd80 0%, #268ef757 26%, #155ebf21 48%, #155ebf0d 72%, #155ebf00 92%), linear-gradient(180deg, #061b3700 70%, #001a3459 50%, #011f3b70 80%, #0536757d 90%, #0a4eb5a8 93.5%, #196fe1c9 96%, #2380ecbf 96%, #67a6f7c7 97.6%, #76b4ffe0 98.6%, #aadcfee0 100%), radial-gradient(80% 64% at 96% 4%, #3a5fa3 0%, #37599e 4%, #2c438a 24%, #131f3c 72%, #0b1322 100%)',
+        background: 'radial-gradient(5% 80% at 100% 100%, rgba(159, 209, 249, 0.5) 0%, rgba(38, 142, 247, 0.28) 26%, rgba(21, 94, 191, 0.13) 48%, rgba(21, 94, 191, 0.05) 72%, rgba(21, 94, 191, 0) 92%), radial-gradient(5% 80% at 0% 100%, rgba(168, 218, 253, 0.5) 0%, rgba(38, 142, 247, 0.34) 26%, rgba(21, 94, 191, 0.13) 48%, rgba(21, 94, 191, 0.05) 72%, rgba(21, 94, 191, 0) 92%), linear-gradient(rgba(6, 27, 55, 0) 70%, rgba(0, 26, 52, 0.35) 50%, rgba(1, 31, 59, 0.44) 80%, rgb(5 54 117 / 57%) 90%, rgb(10 78 181 / 66%) 93.5%, rgb(25 111 225 / 82%) 96%, rgb(35 121 236 / 75%) 96%, rgba(103, 166, 247, 0.78) 97.6%, rgba(118, 180, 255, 0.88) 98.6%, rgba(170, 220, 254, 0.88) 100%), radial-gradient(80% 64% at 96% 4%, rgb(58, 95, 163) 0%, rgb(55, 89, 158) 4%, rgb(44, 67, 138) 24%, rgb(19, 31, 60) 72%, rgb(11, 19, 34) 100%)',
         borderRadius: 'var(--radius-card)'
       }}
     >
@@ -59,7 +59,7 @@ export function MarketingCard() {
           </h1>
           <p style={{ 
             fontSize: 'var(--text-s)', 
-            fontWeight: 'var(--font-weight-normal)',
+            fontWeight: 'var(--font-weight-light)',
             lineHeight: '1.43',
             color: 'var(--side-bar-hold-white)',
             fontFamily: '"Kanit", sans-serif',
