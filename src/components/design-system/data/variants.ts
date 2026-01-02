@@ -26,6 +26,7 @@ import * as TabPreviews from '../previews/tab-previews';
 import * as MarketTimelinePreviews from '../previews/market-timeline-previews';
 import * as MarketOrderBookPreviews from '../previews/market-orderbook-previews';
 import * as AtomicPreviews from '../previews/atomic-previews';
+import * as RivePreviews from '../previews/rive-previews';
 
 /**
  * All component variants organized by category
@@ -2300,6 +2301,31 @@ const chartData = [
     ],
   },
 
-  // NOTE: Additional components can be added here following the same pattern
-  // See the migration guide in /components/design-system/README.md
+  // ==================== MEDIA ====================
+  {
+    id: 'media-rive',
+    label: 'Rive Animation',
+    category: 'Media',
+    sizeStates: [
+      {
+        size: 'Default',
+        state: 'Default',
+        description: 'Rive animation integration',
+        renderComponent: RivePreviews.RiveDefaultPreview,
+        cssVars: [],
+        codeExample: `import { RiveAnimation } from "@/components/ui/rive-animation"
+
+export function RiveDemo() {
+  return (
+    <div className="h-[400px]">
+      <RiveAnimation
+        src="https://cdn.rive.app/animations/vehicles.riv"
+        stateMachines="bumpy"
+      />
+    </div>
+  )
+}`
+      }
+    ]
+  },
 ];

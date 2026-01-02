@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, lazy, Suspense, useMemo } from 'react';
+import './error-suppression'; // Import error suppression for Rive WebGL bugs
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 // Lazy load page components for optimal code splitting
