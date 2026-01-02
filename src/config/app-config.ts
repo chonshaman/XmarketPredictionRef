@@ -18,7 +18,7 @@ export const LAYOUT_CONFIG = {
 
 // Carousel Configuration
 export const CAROUSEL_CONFIG = {
-  autoplaySpeed: 8000,
+  autoplaySpeed: 7000,
   transitionSpeed: 500,
   slidesToShow: {
     desktop: 4, // >= 1280px

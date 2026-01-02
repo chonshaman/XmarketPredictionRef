@@ -81,7 +81,7 @@ export function ReferralCard() {
               }
             >
               <RiveAnimation 
-                src="https://cdn.jsdelivr.net/gh/chonshaman/XmarketPredictionRef@dfc3b00c52f69723bb9ac7895da23fdeed38cd1f/src/components/hero/jumpinggift.riv" 
+                src="https://cdn.jsdelivr.net/gh/chonshaman/riv_store@85b8ec333c4ced02c9a29372931278c79d4bd99a/rive/jumpinggift.riv" 
                 className="min-h-0"
                 onError={() => {
                   console.warn("Rive load failed");

@@ -30,7 +30,7 @@ export function MarketingCard() {
               }
             >
               <RiveAnimation 
-                src="https://cdn.jsdelivr.net/gh/chonshaman/XmarketPredictionRef@d8b17ae1de35fc1d49925e878bf57cc678ec02a5/src/components/hero/giftbox.riv" 
+                src="https://cdn.jsdelivr.net/gh/chonshaman/riv_store@85b8ec333c4ced02c9a29372931278c79d4bd99a/rive/giftbox.riv" 
                 className="min-h-0"
                 onError={() => {
                   console.warn("Rive load failed");

@@ -287,8 +287,8 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
                 padding: 0,
                 border: "none",
                 cursor: "pointer",
-                backgroundColor: currentSlide === index ? "var(--primary)" : "var(--muted-foreground)",
-                opacity: currentSlide === index ? 1 : 0.5,
+                backgroundColor: currentSlide === index ? "var(--iris-9)" : "var(--muted-foreground)",
+                opacity: currentSlide === index ? 1 : 0.3,
               }}
             />
           ))}
@@ -429,7 +429,7 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
         }
 
         .progress-bar-animation {
-          animation: progressAnimation 8000ms linear infinite;
+          animation: progressAnimation 7000ms linear infinite;
         }
 
         /* Only show progress bar on active slide */
