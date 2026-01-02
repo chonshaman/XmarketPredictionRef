@@ -11,9 +11,8 @@ export function MarketingCard() {
     <div 
       className="flex flex-col h-full w-full overflow-hidden relative group"
       style={{ 
-        background: 'radial-gradient(120% 120% at 0% 0%, var(--iris-7) 0%, var(--iris-9) 100%)',
-        borderRadius: 'var(--radius-card)',
-        border: '1px solid var(--black-a1)'
+        background: 'radial-gradient(5% 80% at 100% 100%, #9fd1f980 0%, #268ef747 26%, #155ebf21 48%, #155ebf0d 72%, #155ebf00 92%), radial-gradient(5% 80% at 0% 100%, #a8dafd80 0%, #268ef757 26%, #155ebf21 48%, #155ebf0d 72%, #155ebf00 92%), linear-gradient(180deg, #061b3700 70%, #001a3459 50%, #011f3b70 80%, #0536757d 90%, #0a4eb5a8 93.5%, #196fe1c9 96%, #2380ecbf 96%, #67a6f7c7 97.6%, #76b4ffe0 98.6%, #aadcfee0 100%), radial-gradient(80% 64% at 96% 4%, #3a5fa3 0%, #37599e 4%, #2c438a 24%, #131f3c 72%, #0b1322 100%)',
+        borderRadius: 'var(--radius-card)'
       }}
     >
       {/* Content Container - Aligned to bottom */}

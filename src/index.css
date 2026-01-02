@@ -5867,7 +5867,7 @@
   --card-gradient: radial-gradient(135% 96% at 49.96% 100%, var(--lum-02, #232b30) -140%, var(--white-a1, #0000000d) 100%), linear-gradient(180deg, var(--lum-02, #232b3033) -120%, var(--lum-01, #0f111233) 100%);
   --card-gradient2: radial-gradient(135% 96% at 49.96% 100%, var(--lum-03, #232b30) -140%, var(--white-a2, #0000000d) 100%), linear-gradient(180deg, var(--lum-03, #232b3033) -120%, var(--lum-02, #0f111233) 100%);
   --radius-button: var(--border-radius--0-5rem);
-  --radius-card: var(--border-radius--0-5rem);
+  --radius-card: var(--border-radius--0-75rem);
   --radius-input: var(--border-radius--0-375rem);
   --sidebar: var(--side-bar-background);
   --sidebar-foreground: var(--side-bar-foreground);

@@ -60,8 +60,7 @@ export function ReferralCard() {
       className="flex flex-col h-full w-full overflow-hidden relative group"
       style={{ 
         background: 'radial-gradient(120% 120% at 0% 0%, var(--teal-7) 0%, var(--teal-9) 100%)',
-        borderRadius: 'var(--radius-card)',
-        border: '1px solid var(--black-a1)'
+        borderRadius: 'var(--radius-card)'
       }}
     >
       {/* Content Container - Aligned to bottom */}
