@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, lazy, Suspense, useMemo } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense, useMemo, useRef } from 'react';
 import './error-suppression'; // Import error suppression for Rive WebGL bugs
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -19,12 +19,23 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Ref to track the main scroll container
+  const mainScrollRef = useRef<HTMLDivElement>(null);
 
   // Combine all markets for search - memoized to prevent recreation on every render
   const allMarkets = useMemo(
     () => [...heroCarouselMarkets, ...featuredMarkets, ...endingSoonMarkets, ...multiOutcomeMarkets],
     []
   );
+
+  // Scroll to top when navigating to detail page
+  useEffect(() => {
+    if (currentPage === 'market' && mainScrollRef.current) {
+      mainScrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentPage, selectedMarket]);
 
   // Theme management
   useEffect(() => {
@@ -95,6 +106,7 @@ export default function App() {
             onClose={closeSidebar}
             onNavigate={handleNavigate}
             currentPage={currentPage}
+            isDetailPage={currentPage === 'market'}
           />
 
           {/* Main Content Area */}
@@ -129,7 +141,13 @@ export default function App() {
                   </div>
                 </main>
               ) : (
-                <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                <main 
+                  ref={mainScrollRef}
+                  className="flex-1 overflow-y-auto overflow-x-hidden"
+                  style={{
+                    transition: 'opacity 0.3s ease-in-out'
+                  }}
+                >
                   <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
                     {currentPage === 'market' && selectedMarket ? (
                       <MarketDetails 

@@ -10,23 +10,36 @@ interface SidebarProps {
   onClose?: () => void;
   onNavigate?: (page: string) => void;
   currentPage?: string;
+  isDetailPage?: boolean;
 }
 
-export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = false, onClose, onNavigate, currentPage }: SidebarProps) {
+export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = false, onClose, onNavigate, currentPage, isDetailPage = false }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Handle responsive behavior for collapsed state
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      // Collapse to icon-only between 768px and 1366px
-      setIsCollapsed(width >= 768 && width < 1366);
+      // On desktop (>= 768px):
+      // - If on detail page, always collapse to icons
+      // - If on homepage and width < 1366, collapse to icons
+      // - If on homepage and width >= 1366, expand
+      if (width >= 768) {
+        if (isDetailPage) {
+          setIsCollapsed(true);
+        } else {
+          setIsCollapsed(width < 1366);
+        }
+      } else {
+        // Mobile: never collapsed (uses overlay instead)
+        setIsCollapsed(false);
+      }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isDetailPage]);
 
   const platformLinks = [
     { icon: TrendingUp, label: 'Live Markets', active: true, page: 'home', shouldBlink: true },

@@ -1,22 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, lazy, Suspense } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { BuySellBlock } from './BuySellBlock';
-import { OrderBookChart } from './market-details/OrderBookChart';
-import { MarketTimeline } from './market-details/MarketTimeline';
-import type { MarketStatus } from './market-details/MarketTimeline';
-import { ArrowLeft, Clock, Users, MessageCircle, TrendingUp } from 'lucide-react';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts';
+import { ArrowLeft, Clock, Users, MessageCircle } from 'lucide-react';
 import type { Market } from '../data/markets';
-import type { Outcome } from './BuySellBlock/types';
 import { OutcomeButton } from './BuySellBlock/OutcomeButton';
+
+// Lazy load heavy components for better code splitting
+const OrderBookChart = lazy(() => import('./market-details/OrderBookChart').then(module => ({ default: module.OrderBookChart })));
+const MarketTimeline = lazy(() => import('./market-details/MarketTimeline').then(module => ({ default: module.MarketTimeline })));
 
 interface MarketDetailsProps {
   market: Market;
@@ -338,23 +329,25 @@ export function MarketDetails({ market, onBack }: MarketDetailsProps) {
           </div>
 
           {/* OrderBook / Chart Section */}
-          <OrderBookChart 
-            totalVolume={market.stats.volume}
-            volumeFormatted={market.stats.volumeFormatted}
-            yesLabel="Yes"
-            yesChance={`${currentYesPercentage}% Chance`}
-            yesPercentage={currentYesPercentage}
-            yesPrice={currentYesPrice}
-            noPercentage={market.prediction.noPercentage}
-            noPrice={currentNoPrice}
-            sellOrders={orderBookData.sellOrders}
-            buyOrders={orderBookData.buyOrders}
-            lastPrice={lastPrice}
-            spread={orderBookData.spread}
-            chartData={chartData}
-            outcomes={market.outcomes}
-            selectedOutcome={selectedOutcome}
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <OrderBookChart 
+              totalVolume={market.stats.volume}
+              volumeFormatted={market.stats.volumeFormatted}
+              yesLabel="Yes"
+              yesChance={`${currentYesPercentage}% Chance`}
+              yesPercentage={currentYesPercentage}
+              yesPrice={currentYesPrice}
+              noPercentage={market.prediction.noPercentage}
+              noPrice={currentNoPrice}
+              sellOrders={orderBookData.sellOrders}
+              buyOrders={orderBookData.buyOrders}
+              lastPrice={lastPrice}
+              spread={orderBookData.spread}
+              chartData={chartData}
+              outcomes={market.outcomes}
+              selectedOutcome={selectedOutcome}
+            />
+          </Suspense>
 
           {/* Market Description */}
           <div className="space-y-3 sm:space-y-4">
@@ -402,7 +395,9 @@ export function MarketDetails({ market, onBack }: MarketDetailsProps) {
               
               {/* Market Timeline */}
               <div className="pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
-                <MarketTimeline currentStatus="live-trading" />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MarketTimeline currentStatus="live-trading" />
+                </Suspense>
               </div>
             </div>
           </div>
