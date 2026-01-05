@@ -1,5 +1,4 @@
 import { TrendingUp, DollarSign, Star, Briefcase, Gamepad2, Users, Cpu, Flame, Moon, Sun, X, Palette } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { SidebarMenuItem } from './SidebarMenuItem';
 
 interface SidebarProps {
@@ -11,36 +10,10 @@ interface SidebarProps {
   onNavigate?: (page: string) => void;
   currentPage?: string;
   isDetailPage?: boolean;
+  isCollapsed?: boolean;
 }
 
-export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = false, onClose, onNavigate, currentPage, isDetailPage = false }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Handle responsive behavior for collapsed state
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      // On desktop (>= 768px):
-      // - If on detail page, always collapse to icons
-      // - If on homepage and width < 1366, collapse to icons
-      // - If on homepage and width >= 1366, expand
-      if (width >= 768) {
-        if (isDetailPage) {
-          setIsCollapsed(true);
-        } else {
-          setIsCollapsed(width < 1366);
-        }
-      } else {
-        // Mobile: never collapsed (uses overlay instead)
-        setIsCollapsed(false);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isDetailPage]);
-
+export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = false, onClose, onNavigate, currentPage, isDetailPage = false, isCollapsed = false }: SidebarProps) {
   const platformLinks = [
     { icon: TrendingUp, label: 'Live Markets', active: true, page: 'home', shouldBlink: true },
     { icon: Star, label: 'My Positions', active: false, page: 'positions', shouldBlink: false },
@@ -80,7 +53,7 @@ export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = fa
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
         style={{
-          width: isCollapsed ? '72px' : '224px',
+          width: isCollapsed ? '72px' : '216px',
         }}
       >
         {/* Mobile Close Button - only show below md (768px) */}
@@ -102,7 +75,7 @@ export function Sidebar({ activeCategory, onToggleTheme, isDarkMode, isOpen = fa
           </button>
         </div>
 
-        <div className="p-4 flex-1">
+        <div className="p-4 pt-6 flex-1">
           {/* Platform Section */}
           <div className="mb-6">
             {!isCollapsed && (

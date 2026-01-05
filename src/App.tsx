@@ -20,6 +20,8 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [manuallyExpanded, setManuallyExpanded] = useState(false);
   
   // Ref to track the main scroll container
   const mainScrollRef = useRef<HTMLDivElement>(null);
@@ -29,6 +31,33 @@ export default function App() {
     () => [...heroCarouselMarkets, ...featuredMarkets, ...endingSoonMarkets, ...multiOutcomeMarkets],
     []
   );
+
+  // Handle sidebar collapse state based on window size and page
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const isDetailPage = currentPage === 'market';
+      
+      // On desktop (>= 768px)
+      if (width >= 768) {
+        if (manuallyExpanded) {
+          setIsSidebarCollapsed(false);
+        } else if (isDetailPage) {
+          setIsSidebarCollapsed(true);
+        } else {
+          setIsSidebarCollapsed(width < 1366);
+        }
+      } else {
+        // Mobile: never collapsed (uses overlay instead)
+        setIsSidebarCollapsed(false);
+        setManuallyExpanded(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [currentPage, manuallyExpanded]);
 
   // Scroll to top when navigating to detail page
   useEffect(() => {
@@ -53,7 +82,14 @@ export default function App() {
   }, []);
 
   const toggleSidebar = useCallback(() => {
-    setIsSidebarOpen(prev => !prev);
+    // On mobile, toggle the sidebar overlay
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(prev => !prev);
+    } else {
+      // On desktop, toggle the collapsed state
+      setIsSidebarCollapsed(prev => !prev);
+      setManuallyExpanded(prev => !prev);
+    }
   }, []);
 
   const closeSidebar = useCallback(() => {
@@ -107,6 +143,7 @@ export default function App() {
             onNavigate={handleNavigate}
             currentPage={currentPage}
             isDetailPage={currentPage === 'market'}
+            isCollapsed={isSidebarCollapsed}
           />
 
           {/* Main Content Area */}

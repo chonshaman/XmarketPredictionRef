@@ -51,10 +51,10 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
     >
       {/* Left Side - Hamburger Menu (Mobile) + Logo */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Hamburger Menu - Mobile Only */}
+        {/* Hamburger Menu - Show below 1366px */}
         <button 
           onClick={onToggleSidebar}
-          className="lg:hidden p-2 rounded-[var(--radius-button)] transition-colors"
+          className="p-2 rounded-[var(--radius-button)] transition-colors xl:hidden"
           style={{ color: 'var(--foreground)' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'var(--accent)';

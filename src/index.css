@@ -4952,12 +4952,6 @@
   }
 
   @media (width >= 64rem) {
-    .lg\:hidden {
-      display: none;
-    }
-  }
-
-  @media (width >= 64rem) {
     .lg\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -4966,6 +4960,12 @@
   @media (width >= 64rem) {
     .lg\:px-8 {
       padding-inline: calc(var(--spacing) * 8);
+    }
+  }
+
+  @media (width >= 80rem) {
+    .xl\:hidden {
+      display: none;
     }
   }
 
