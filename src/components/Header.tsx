@@ -54,7 +54,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
         {/* Hamburger Menu - Show below 1366px */}
         <button 
           onClick={onToggleSidebar}
-          className="p-2 rounded-[var(--radius-button)] transition-colors xl:hidden"
+          className="hamburger-menu p-2 rounded-[var(--radius-button)] transition-colors"
           style={{ color: 'var(--foreground)' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'var(--accent)';
@@ -88,11 +88,18 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
       </div>
 
       {/* Right Side Actions */}
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center" style={{ gap: 'var(--gap--0-5rem)' }}>
         {/* Currency Selector - Hidden on mobile */}
         <button 
-          className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-[var(--radius-button)] transition-colors"
-          style={{ fontSize: 'var(--text-s)', color: 'var(--foreground)' }}
+          className="hidden sm:flex items-center transition-colors"
+          style={{ 
+            fontSize: 'var(--text-s)', 
+            color: 'var(--foreground)',
+            height: '36px',
+            gap: 'var(--gap--0-5rem)',
+            padding: '0 var(--gap--0-75rem)',
+            borderRadius: 'var(--radius-button)',
+          }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'var(--accent)';
           }}
@@ -116,10 +123,14 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
         {/* User Profile with Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button 
-            className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-[var(--radius-button)] transition-colors"
+            className="flex items-center transition-colors"
             style={{ 
               color: 'var(--foreground)',
-              fontSize: 'var(--text-s)'
+              fontSize: 'var(--text-s)',
+              height: '36px',
+              gap: 'var(--gap--0-5rem)',
+              padding: '0 var(--gap--0-75rem)',
+              borderRadius: 'var(--radius-button)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'var(--accent)';
@@ -309,6 +320,19 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
           )}
         </div>
       </div>
+      
+      <style>{`
+        /* Show hamburger menu below 1366px */
+        .hamburger-menu {
+          display: flex;
+        }
+
+        @media (min-width: 1366px) {
+          .hamburger-menu {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 });

@@ -14,6 +14,7 @@ export const SearchBox = memo(function SearchBox({ markets, onMarketClick }: Sea
   const [isClosing, setIsClosing] = useState(false);
   const [isSearchHovered, setIsSearchHovered] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const iconButtonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Filter markets based on search query
@@ -33,7 +34,12 @@ export const SearchBox = memo(function SearchBox({ markets, onMarketClick }: Sea
   // Close expanded view when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        searchRef.current && 
+        !searchRef.current.contains(event.target as Node) &&
+        iconButtonRef.current && 
+        !iconButtonRef.current.contains(event.target as Node)
+      ) {
         handleClose();
       }
     };
@@ -83,8 +89,27 @@ export const SearchBox = memo(function SearchBox({ markets, onMarketClick }: Sea
 
   return (
     <>
-      {/* Compact Search Input */}
-      <div className="relative hidden md:block" ref={searchRef}>
+      {/* Icon-only Search Button - Show from 769px to 1024px */}
+      <button 
+        className="search-icon-only p-2 rounded-[var(--radius-button)] transition-colors"
+        onClick={handleSearchClick}
+        style={{ color: 'var(--muted-foreground)' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'var(--card-hover)';
+          e.currentTarget.style.color = 'var(--card-foreground)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'transparent';
+          e.currentTarget.style.color = 'var(--muted-foreground)';
+        }}
+        aria-label="Search markets"
+        ref={iconButtonRef}
+      >
+        <Search className="w-5 h-5" />
+      </button>
+
+      {/* Full Search Input - Hidden from 769px to 1024px */}
+      <div className="relative search-full-width" ref={searchRef}>
         <div 
           className="flex items-center cursor-pointer transition-all duration-200 ease-out"
           onClick={handleSearchClick}
@@ -454,6 +479,37 @@ export const SearchBox = memo(function SearchBox({ markets, onMarketClick }: Sea
 
       {/* Animations */}
       <style>{`
+        /* Responsive search display */
+        /* Hide icon-only by default */
+        .search-icon-only {
+          display: none;
+        }
+
+        /* Hide full-width by default on mobile */
+        .search-full-width {
+          display: none;
+        }
+
+        /* From 769px to 1024px: Show icon only, hide full search */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .search-icon-only {
+            display: flex;
+          }
+          .search-full-width {
+            display: none;
+          }
+        }
+
+        /* Above 1024px: Show full search, hide icon */
+        @media (min-width: 1025px) {
+          .search-icon-only {
+            display: none;
+          }
+          .search-full-width {
+            display: block;
+          }
+        }
+
         @keyframes fadeIn {
           from {
             opacity: 0;
