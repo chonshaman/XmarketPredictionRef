@@ -110,7 +110,7 @@ const TeamRow = memo(({ code, name, color, price, isActive }: TeamRowProps) => (
       <span 
         className="truncate font-sans"
         style={{
-          fontSize: 'var(--text-base)',
+          fontSize: 'var(--text-m)',
           fontWeight: 'var(--font-weight-medium)',
           color: 'var(--black-a11)',
           lineHeight: '1.2'

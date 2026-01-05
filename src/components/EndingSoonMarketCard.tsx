@@ -149,7 +149,7 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
           <p 
             className="font-sans line-clamp-2 transition-all duration-300 ease-out"
             style={{
-              fontSize: 'var(--text-base)',
+              fontSize: 'var(--text-m)',
               fontWeight: 'var(--font-weight-medium)',
               lineHeight: '20px',
               color: 'var(--black-a11)',

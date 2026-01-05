@@ -138,8 +138,9 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
         <div className="content-stretch flex items-start justify-between mb-[10px] sm:mb-[12px]">
           <div className="basis-0 content-stretch flex flex-col grow items-start max-h-[80px] min-h-[56px] sm:min-h-[60px] min-w-px">
             <p 
-              className="font-sans w-full max-h-[64px] min-h-[56px] sm:min-h-[60px] overflow-ellipsis overflow-hidden transition-all duration-300 ease-out text-[length:var(--text-l)] sm:text-[length:var(--text-base)]"
+              className="font-sans w-full max-h-[64px] min-h-[56px] sm:min-h-[60px] overflow-ellipsis overflow-hidden transition-all duration-300 ease-out"
               style={{
+                fontSize: 'var(--text-m)',
                 fontWeight: 'var(--font-weight-medium)',
                 lineHeight: '20px',
                 color: 'var(--black-a11)',
