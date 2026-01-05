@@ -4781,8 +4781,8 @@
   }
 
   @media (width >= 48rem) {
-    .md\:mx-\[var\(--gap--1rem\)\] {
-      margin-inline: var(--gap--1rem);
+    .md\:mx-\[var\(--gap--0-5rem\)\] {
+      margin-inline: var(--gap--0-5rem);
     }
   }
 
@@ -4793,8 +4793,8 @@
   }
 
   @media (width >= 48rem) {
-    .md\:mb-\[var\(--gap--1rem\)\] {
-      margin-bottom: var(--gap--1rem);
+    .md\:mb-\[var\(--gap--0-5rem\)\] {
+      margin-bottom: var(--gap--0-5rem);
     }
   }
 
