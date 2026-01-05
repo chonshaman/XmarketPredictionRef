@@ -51,9 +51,9 @@ export const HomePage = React.memo(({ onMarketSelect }: HomePageProps) => {
           </h2>
         </div>
 
-        {/* Ending Soon Grid */}
+        {/* Ending Soon Grid - Custom responsive: 1 col until 860px, then 2 cols, then 3 cols at 1024px */}
         <div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          className="ending-soon-grid"
           style={{
             gap: 'var(--gap--1rem)',
           }}
@@ -66,6 +66,25 @@ export const HomePage = React.memo(({ onMarketSelect }: HomePageProps) => {
             />
           ))}
         </div>
+        
+        <style>{`
+          .ending-soon-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+          }
+          
+          @media (min-width: 860px) {
+            .ending-soon-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          
+          @media (min-width: 1024px) {
+            .ending-soon-grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+        `}</style>
       </section>
 
       {/* All Categories Section */}

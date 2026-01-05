@@ -94,7 +94,8 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
         setSlidesToShow(4);
       } else if (width >= 1024) {
         setSlidesToShow(3);
-      } else if (width >= 768) {
+      } else if (width >= 560) {
+        // Show 2 cards from 560px to 760px (and up to 1024px)
         setSlidesToShow(2);
       } else {
         setSlidesToShow(1);
