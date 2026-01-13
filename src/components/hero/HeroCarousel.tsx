@@ -85,6 +85,10 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
   const [activeQuickBuyId, setActiveQuickBuyId] = useState<string | null>(null);
   const sliderRef = useRef<Slider>(null);
   const [slidesToShow, setSlidesToShow] = useState(1); // Start with mobile default
+  
+  // Touch event handling for swipe functionality
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   // Calculate initial slides to show based on window width
   React.useEffect(() => {
@@ -147,6 +151,34 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
 
   const handleDotClick = useCallback((index: number) => {
     sliderRef.current?.slickGoTo(index);
+  }, []);
+
+  // Touch event handlers for swipe detection
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const minSwipeDistance = 50; // Minimum distance for a swipe
+    const swipeDistance = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        // Swiped left - go to next slide
+        sliderRef.current?.slickNext();
+      } else {
+        // Swiped right - go to previous slide
+        sliderRef.current?.slickPrev();
+      }
+    }
+
+    // Reset values
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   }, []);
 
   const totalSlides = 3 + allCarouselMarkets.length; // Marketing + Referral + FeaturedMatch + Markets
@@ -223,52 +255,58 @@ export function HeroCarousel({ onMarketSelect }: HeroCarouselProps) {
 
   return (
     <div className="w-full relative pb-16" style={{ paddingBottom: 'var(--gap--4rem)' }}>
-      <Slider {...settings} className="hero-slick-slider" ref={sliderRef}>
-        {/* Slide 1: Marketing Card */}
-        <div className="px-1 sm:px-2">
-          <div className="carousel-card-height">
-            <MarketingCard />
-          </div>
-        </div>
-
-        {/* Slide 2: Referral Card */}
-        <div className="px-1 sm:px-2">
-          <div className="carousel-card-height">
-            <ReferralCard />
-          </div>
-        </div>
-
-        {/* Slide 3: Featured Match Card */}
-        <div className="px-1 sm:px-2">
-          <div className="carousel-card-height">
-            <FeaturedMatchCard match={featuredMatch} />
-          </div>
-        </div>
-
-        {/* Subsequent Slides: Markets (Binary and Multi-Outcome) */}
-        {allCarouselMarkets.map((market, index) => (
-          <div key={market.id} className="px-1 sm:px-2">
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <Slider {...settings} className="hero-slick-slider" ref={sliderRef}>
+          {/* Slide 1: Marketing Card */}
+          <div className="px-1 sm:px-2">
             <div className="carousel-card-height">
-              {market.outcomes && market.outcomes.length > 2 ? (
-                // Render multi-outcome card
-                <MultiOutcomeMarketCard 
-                  {...market} 
-                  onMarketSelect={onMarketSelect}
-                />
-              ) : (
-                // Render binary market card with QuickBuy
-                <FeaturedMarketCard 
-                  {...market} 
-                  isQuickBuyOpen={activeQuickBuyId === market.id}
-                  onOpenQuickBuy={handleOpenQuickBuy}
-                  onCloseQuickBuy={handleCloseQuickBuy}
-                  onMarketSelect={onMarketSelect}
-                />
-              )}
+              <MarketingCard />
             </div>
           </div>
-        ))}
-      </Slider>
+
+          {/* Slide 2: Referral Card */}
+          <div className="px-1 sm:px-2">
+            <div className="carousel-card-height">
+              <ReferralCard />
+            </div>
+          </div>
+
+          {/* Slide 3: Featured Match Card */}
+          <div className="px-1 sm:px-2">
+            <div className="carousel-card-height">
+              <FeaturedMatchCard match={featuredMatch} />
+            </div>
+          </div>
+
+          {/* Subsequent Slides: Markets (Binary and Multi-Outcome) */}
+          {allCarouselMarkets.map((market, index) => (
+            <div key={market.id} className="px-1 sm:px-2">
+              <div className="carousel-card-height">
+                {market.outcomes && market.outcomes.length > 2 ? (
+                  // Render multi-outcome card
+                  <MultiOutcomeMarketCard 
+                    {...market} 
+                    onMarketSelect={onMarketSelect}
+                  />
+                ) : (
+                  // Render binary market card with QuickBuy
+                  <FeaturedMarketCard 
+                    {...market} 
+                    isQuickBuyOpen={activeQuickBuyId === market.id}
+                    onOpenQuickBuy={handleOpenQuickBuy}
+                    onCloseQuickBuy={handleCloseQuickBuy}
+                    onMarketSelect={onMarketSelect}
+                  />
+                )}
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
 
       {/* Custom Navigation Controls */}
       <div className="absolute left-0 right-0 flex items-center justify-between" style={{ bottom: 'var(--gap--2rem)' }}>
