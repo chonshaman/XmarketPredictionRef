@@ -55,9 +55,9 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
         <button 
           onClick={onToggleSidebar}
           className="hamburger-menu p-2 rounded-[var(--radius-button)] transition-colors"
-          style={{ color: 'var(--foreground)' }}
+          style={{ color: 'var(--lum-12)' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--accent)';
+            e.currentTarget.style.background = 'var(--black-a1)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent';
@@ -94,14 +94,15 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
           className="hidden sm:flex items-center transition-colors"
           style={{ 
             fontSize: 'var(--text-s)', 
-            color: 'var(--foreground)',
+            fontFamily: 'Inter, sans-serif',
+            color: 'var(--lum-12)',
             height: '36px',
             gap: 'var(--gap--0-5rem)',
             padding: '0 var(--gap--0-75rem)',
             borderRadius: 'var(--radius-button)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--accent)';
+            e.currentTarget.style.background = 'var(--black-a1)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent';
@@ -110,7 +111,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
           <MoneyDisplay 
             amount={balance} 
             currency="USDT"
-            icon={<DollarSign className="w-4 h-4" style={{ color: 'var(--foreground)' }} />}
+            icon={<DollarSign className="w-4 h-4" style={{ color: 'var(--lum-12)' }} />}
           />
           <ChevronDown className="w-4 h-4" style={{ color: 'var(--muted-foreground)' }} />
         </button>
@@ -125,7 +126,8 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
           <button 
             className="flex items-center transition-colors"
             style={{ 
-              color: 'var(--foreground)',
+              color: 'var(--lum-12)',
+              fontFamily: 'Inter, sans-serif',
               fontSize: 'var(--text-s)',
               height: '36px',
               gap: 'var(--gap--0-5rem)',
@@ -133,7 +135,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
               borderRadius: 'var(--radius-button)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--accent)';
+              e.currentTarget.style.background = 'var(--black-a1)';
             }}
             onMouseLeave={(e) => {
               if (!isProfileOpen) {
@@ -147,11 +149,11 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
           >
             <div 
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
-              style={{ background: 'var(--primary)' }}
+              style={{ background: 'var(--iris-9)' }}
             >
-              <User className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--primary-foreground)' }} />
+              <User className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--lum-01)' }} />
             </div>
-            <span className="hidden sm:inline" style={{ color: 'var(--foreground)' }}>shaman</span>
+            <span className="hidden sm:inline" style={{ color: 'var(--lum-12)' }}>shaman</span>
             <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--muted-foreground)' }} />
           </button>
 
@@ -166,13 +168,14 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
                 padding: 'var(--gap--0-5rem)',
                 boxShadow: 'var(--shadow-2)',
                 fontSize: 'var(--text-sm)',
+                fontFamily: 'Inter, sans-serif',
               }}
             >
               {/* Profile */}
               <button 
                 className="w-full flex items-center gap-3 transition-colors"
                 style={{ 
-                  color: 'var(--card-foreground)',
+                  color: 'var(--lum-12)',
                   padding: 'var(--gap--0-5rem)',
                   borderRadius: 'var(--border-radius--0-375rem)',
                 }}
@@ -191,7 +194,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
               <button 
                 className="w-full flex items-center gap-3 transition-colors"
                 style={{ 
-                  color: 'var(--card-foreground)',
+                  color: 'var(--lum-12)',
                   padding: 'var(--gap--0-5rem)',
                   borderRadius: 'var(--border-radius--0-375rem)',
                 }}
@@ -210,7 +213,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
               <button 
                 className="w-full flex items-center gap-3 transition-colors"
                 style={{ 
-                  color: 'var(--card-foreground)',
+                  color: 'var(--lum-12)',
                   padding: 'var(--gap--0-5rem)',
                   borderRadius: 'var(--border-radius--0-375rem)',
                 }}
@@ -230,7 +233,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
                 <button 
                   className="w-full flex items-center justify-between gap-3 transition-colors"
                   style={{ 
-                    color: 'var(--card-foreground)',
+                    color: 'var(--lum-12)',
                     padding: 'var(--gap--0-5rem)',
                     borderRadius: 'var(--border-radius--0-375rem)',
                   }}
@@ -262,6 +265,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
                       padding: 'var(--gap--0-5rem)',
                       boxShadow: 'var(--shadow-2)',
                       fontSize: 'var(--text-sm)',
+                      fontFamily: 'Inter, sans-serif',
                     }}
                     onMouseEnter={() => setIsLanguageOpen(true)}
                     onMouseLeave={() => setIsLanguageOpen(false)}
@@ -271,7 +275,7 @@ export const Header = memo(function Header({ onToggleSidebar, markets = [], onMa
                         key={lang}
                         className="w-full text-left transition-colors"
                         style={{ 
-                          color: 'var(--card-foreground)',
+                          color: 'var(--lum-12)',
                           padding: 'var(--gap--0-5rem)',
                           borderRadius: 'var(--border-radius--0-375rem)',
                         }}

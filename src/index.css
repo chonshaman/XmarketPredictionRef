@@ -1301,6 +1301,10 @@
     height: 18px;
   }
 
+  .h-\[19px\] {
+    height: 19px;
+  }
+
   .h-\[20px\] {
     height: 20px;
   }
@@ -2475,10 +2479,6 @@
 
   .fill-primary {
     fill: var(--primary);
-  }
-
-  .object-contain {
-    object-fit: contain;
   }
 
   .object-cover {
@@ -4489,20 +4489,14 @@
   }
 
   @media (width >= 40rem) {
-    .sm\:h-10 {
-      height: calc(var(--spacing) * 10);
-    }
-  }
-
-  @media (width >= 40rem) {
     .sm\:h-\[20px\] {
       height: 20px;
     }
   }
 
   @media (width >= 40rem) {
-    .sm\:h-\[36px\] {
-      height: 36px;
+    .sm\:h-\[24px\] {
+      height: 24px;
     }
   }
 
@@ -4539,12 +4533,6 @@
   @media (width >= 40rem) {
     .sm\:w-8 {
       width: calc(var(--spacing) * 8);
-    }
-  }
-
-  @media (width >= 40rem) {
-    .sm\:w-10 {
-      width: calc(var(--spacing) * 10);
     }
   }
 
@@ -4811,20 +4799,8 @@
   }
 
   @media (width >= 48rem) {
-    .md\:h-12 {
-      height: calc(var(--spacing) * 12);
-    }
-  }
-
-  @media (width >= 48rem) {
-    .md\:h-\[48px\] {
-      height: 48px;
-    }
-  }
-
-  @media (width >= 48rem) {
-    .md\:w-12 {
-      width: calc(var(--spacing) * 12);
+    .md\:h-\[30px\] {
+      height: 30px;
     }
   }
 
@@ -4909,8 +4885,8 @@
   }
 
   @media (width >= 48rem) {
-    .md\:border-\[var\(--border\)\] {
-      border-color: var(--border);
+    .md\:border-\[var\(--black-a1\)\] {
+      border-color: var(--black-a1);
     }
   }
 
