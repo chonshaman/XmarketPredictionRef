@@ -4645,12 +4645,6 @@
   }
 
   @media (width >= 40rem) {
-    .sm\:gap-\[12px\] {
-      gap: 12px;
-    }
-  }
-
-  @media (width >= 40rem) {
     :where(.sm\:space-y-4 > :not(:last-child)) {
       --tw-space-y-reverse: 0;
       margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));

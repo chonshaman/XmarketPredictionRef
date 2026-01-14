@@ -329,7 +329,7 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
         >
           <div>
             {/* Header */}
-            <div className="flex items-center gap-[10px] sm:gap-[12px] mb-[10px] sm:mb-[12px]">
+            <div className="flex items-center gap-[8px] sm:gap-[10px] mb-[10px] sm:mb-[12px]">
               <div className="bg-accent flex items-center justify-center px-[10px] sm:px-[12px] py-[3px] sm:py-[4px] rounded-[var(--radius-input)] shrink-0">
                 <p 
                   className="font-sans text-muted-foreground text-nowrap"

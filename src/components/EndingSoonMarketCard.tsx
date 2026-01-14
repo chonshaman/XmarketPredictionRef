@@ -117,7 +117,7 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
         }}
       >
         {/* Category and Time */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-[8px] sm:gap-[10px] items-center">
           <div 
             className="flex items-center justify-center px-3 py-1 shrink-0"
             style={{ 
