@@ -97,7 +97,7 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
       className="rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1 group relative flex flex-col"
       style={{ 
         background: isHovered ? 'var(--card-hover)' : 'var(--card-normal)',
-        border: '1px solid var(--black-a2)',
+        border: '1px solid var(--black-a1)',
         boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)'
       }}
     >
@@ -195,7 +195,7 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
               className="basis-0 grow min-h-px min-w-px relative rounded-[var(--radius-input)] shrink-0 overflow-hidden group/yes cursor-pointer transition-all duration-300" 
               onClick={handleYesClick}
               style={{ 
-                border: '1px solid var(--black-a2)',
+                border: '1px solid var(--black-a1)',
                 background: 'var(--side-bar-outline)',
                 boxShadow: 'var(--shadow-4)',
                 transform: 'translateY(0)'

@@ -155,7 +155,7 @@ const OddsButton = memo(({
   const hasColor = !isDraw && color;
 
   const buttonStyle = useMemo(() => ({
-    border: '1px solid var(--black-a2)',
+    border: '1px solid var(--black-a1)',
     background: (isActive && hasColor) 
       ? color 
       : isActive && isDraw
@@ -269,7 +269,7 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
 
   const cardStyle = useMemo(() => ({
     background: isCardHovered ? 'var(--card-hover)' : 'var(--card-normal)',
-    border: '1px solid var(--black-a2)',
+    border: '1px solid var(--black-a1)',
     minHeight: CARD_MIN_HEIGHT
   }), [isCardHovered]);
 
