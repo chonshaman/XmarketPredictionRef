@@ -2,6 +2,8 @@ import React, { useState, useCallback, useMemo, memo } from 'react';
 import svgPaths from '../../imports/svg-08dg7pjb6g';
 import type { Match } from '../../data/matches';
 import { getRandomUsername } from '../../utils/format';
+import { useSavedMarkets } from '../../context/SavedMarketsContext';
+import { SaveIcon } from '../SaveIcon';
 
 // ============================================================================
 // TYPES
@@ -273,6 +275,10 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
     minHeight: CARD_MIN_HEIGHT
   }), [isCardHovered]);
 
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(match.id);
+
   return (
     <div 
       onClick={onClick}
@@ -284,10 +290,18 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
       onMouseEnter={handleCardMouseEnter}
       onMouseLeave={handleCardMouseLeave}
     >
+      {/* Save Icon - appears on hover at top right corner */}
+      <SaveIcon 
+        isSaved={isSaved}
+        isHovered={isCardHovered}
+        onToggle={() => toggleSavedMarket(match.id)}
+        rightOffset={10}
+      />
+
       <div className="p-3 sm:p-[16px] flex flex-col flex-1 justify-between">
         <div>
           {/* Header */}
-          <div className="flex items-center justify-between mb-[10px] sm:mb-[12px]">
+          <div className="flex items-center gap-[10px] sm:gap-[12px] mb-[10px] sm:mb-[12px]">
             <div className="bg-accent flex items-center justify-center px-[10px] sm:px-[12px] py-[3px] sm:py-[4px] rounded-[var(--radius-input)] shrink-0">
               <p 
                 className="font-sans text-muted-foreground text-nowrap"

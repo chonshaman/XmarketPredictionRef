@@ -6,6 +6,8 @@ const QuickBuyModal = lazy(() => import('./QuickBuyModal').then(module => ({ def
 import { motion, AnimatePresence } from 'motion/react';
 import type { Market } from '../data/markets';
 import { getRandomUsername } from '../utils/format';
+import { useSavedMarkets } from '../context/SavedMarketsContext';
+import { SaveIcon } from './SaveIcon';
 
 interface EndingSoonMarketCardProps extends Market {
   onClick?: () => void;
@@ -20,6 +22,10 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(market.id);
 
   // Generate a deterministic username based on market ID
   const username = useMemo(() => getRandomUsername(market?.id || 'default'), [market?.id]);
@@ -72,7 +78,7 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="flex gap-3 p-3 sm:p-[16px] overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1 group"
+      className="flex gap-3 p-3 sm:p-[16px] overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1 group relative"
       style={{ 
         background: isHovered ? 'var(--card-hover)' : 'var(--card-normal)',
         border: '1px solid var(--black-a1)',
@@ -80,6 +86,14 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
         boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)'
       }}
     >
+      {/* Save Icon - appears on hover at top right corner */}
+      <SaveIcon 
+        isSaved={isSaved}
+        isHovered={isHovered}
+        onToggle={() => toggleSavedMarket(market.id)}
+        rightOffset={10}
+      />
+
       {/* Left Column - Image */}
       <div 
         className="shrink-0 overflow-hidden"

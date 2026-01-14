@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, memo, useCallback, useMemo } from 'react';
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-import { Bookmark, X } from "lucide-react";
+import { X } from "lucide-react";
 import { cn } from "../ui/utils";
 import svgPaths from "../../imports/svg-08dg7pjb6g";
 import { motion, AnimatePresence } from 'motion/react';
@@ -8,6 +8,8 @@ import type { Market } from "../../data/markets";
 import { PrimaryButton } from "../PrimaryButton";
 import { useBalance } from '../../contexts/BalanceContext';
 import { getRandomUsername } from '../../utils/format';
+import { useSavedMarkets } from '../../context/SavedMarketsContext';
+import { SaveIcon } from '../SaveIcon';
 
 interface FeaturedMarketCardProps extends Market {
   isQuickBuyOpen?: boolean;
@@ -30,6 +32,10 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
   const { balance: availableBalance } = useBalance();
   const cardRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(market.id);
 
   // Unique input ID for this card - must be defined before useEffect
   const inputId = `quickbuy-inline-input-${market.id}`;
@@ -246,7 +252,12 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                     </p>
                   </div>
                 </div>
-                <Bookmark className="w-4 h-4 text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors" />
+                <SaveIcon 
+                  isSaved={isSaved}
+                  isHovered={isHovered}
+                  onToggle={() => toggleSavedMarket(market.id)}
+                  rightOffset={10}
+                />
               </div>
 
               {/* Question */}

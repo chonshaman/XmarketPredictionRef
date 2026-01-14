@@ -10,6 +10,7 @@ const Watchlist = lazy(() => import('./components/Watchlist').then(module => ({ 
 const DesignSystemPage = lazy(() => import('./components/design-system').then(module => ({ default: module.DesignSystemPage })));
 
 import { BalanceProvider } from './contexts/BalanceContext';
+import { SavedMarketsProvider } from './context/SavedMarketsContext';
 import { featuredMarkets, endingSoonMarkets, heroCarouselMarkets, multiOutcomeMarkets } from './data/markets';
 import type { Market } from './data/markets';
 
@@ -118,89 +119,91 @@ export default function App() {
 
   return (
     <BalanceProvider>
-      <div 
-        className="flex flex-col h-screen" 
-        style={{ 
-          background: 'radial-gradient(45.34% 38.93% at 0 4.95%, hsl(from var(--blue-3) h s l / .5) 0, hsl(from var(--white-a1) h s l / .03) 100%), linear-gradient(180deg, hsl(from var(--lum-03) h s l / .5) -.44%, hsl(from var(--lum-02) h s l / .5) 56.31%), hsl(from var(--sand-1) h s l)'
-        }}
-      >
-        {/* Header - Full Width */}
-        <Header 
-          onToggleSidebar={toggleSidebar} 
-          markets={allMarkets}
-          onMarketSelect={handleMarketSelect}
-          onLogoClick={handleLogoClick}
-        />
-
-        {/* Content Area with Sidebar */}
-        <div className="flex-1 flex min-h-0">
-          {/* Sidebar - Desktop: always visible, Mobile: overlay */}
-          <Sidebar 
-            onToggleTheme={toggleTheme} 
-            isDarkMode={isDarkMode} 
-            isOpen={isSidebarOpen}
-            onClose={closeSidebar}
-            onNavigate={handleNavigate}
-            currentPage={currentPage}
-            isDetailPage={currentPage === 'market'}
-            isCollapsed={isSidebarCollapsed}
+      <SavedMarketsProvider>
+        <div 
+          className="flex flex-col h-screen" 
+          style={{ 
+            background: 'radial-gradient(45.34% 38.93% at 0 4.95%, hsl(from var(--blue-3) h s l / .5) 0, hsl(from var(--white-a1) h s l / .03) 100%), linear-gradient(180deg, hsl(from var(--lum-03) h s l / .5) -.44%, hsl(from var(--lum-02) h s l / .5) 56.31%), hsl(from var(--sand-1) h s l)'
+          }}
+        >
+          {/* Header - Full Width */}
+          <Header 
+            onToggleSidebar={toggleSidebar} 
+            markets={allMarkets}
+            onMarketSelect={handleMarketSelect}
+            onLogoClick={handleLogoClick}
           />
 
-          {/* Main Content Area */}
-          <div 
-            className="flex-1 flex flex-col min-w-0 content-area-scroll md:mt-[var(--gap--0-75rem)] md:mx-[var(--gap--0-5rem)] md:mb-[var(--gap--0-5rem)] md:border md:border-[var(--border)] md:rounded-[var(--border-radius--1rem)] md:shadow-[var(--shadow-1)] border-0 rounded-0 shadow-none"
-            style={{
-              background: 'radial-gradient(240% 160% at 180% 100%,hsl(from var(--lum-02) h s l) 0,hsl(from var(--sage-2) h s l) 56.68%,hsl(from var(--lum-02) h s l) 100%),hsl(from var(--mauve-1) h s l)',
-            }}
-          >
-            {/* Scrollable Content Container with Suspense for all lazy loaded components */}
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-full">
-                <p style={{ 
-                  fontSize: 'var(--text-sm)', 
-                  fontWeight: 'var(--font-weight-medium)',
-                  color: 'var(--muted-foreground)'
-                }}>
-                  Loading...
-                </p>
-              </div>
-            }>
-              {currentPage === 'design-system' ? (
-                <DesignSystemPage />
-              ) : currentPage === 'sports' ? (
-                <main className="flex-1 overflow-y-auto overflow-x-hidden">
-                  <Sports />
-                </main>
-              ) : currentPage === 'watchlist' ? (
-                <main className="flex-1 overflow-y-auto overflow-x-hidden">
-                  <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
-                    <Watchlist onMarketSelect={handleMarketSelect} />
-                  </div>
-                </main>
-              ) : (
-                <main 
-                  ref={mainScrollRef}
-                  className="flex-1 overflow-y-auto overflow-x-hidden"
-                  style={{
-                    transition: 'opacity 0.3s ease-in-out'
-                  }}
-                >
-                  <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
-                    {currentPage === 'market' && selectedMarket ? (
-                      <MarketDetails 
-                        market={selectedMarket} 
-                        onBack={handleBackToHome} 
-                      />
-                    ) : (
-                      <HomePage onMarketSelect={handleMarketSelect} />
-                    )}
-                  </div>
-                </main>
-              )}
-            </Suspense>
+          {/* Content Area with Sidebar */}
+          <div className="flex-1 flex min-h-0">
+            {/* Sidebar - Desktop: always visible, Mobile: overlay */}
+            <Sidebar 
+              onToggleTheme={toggleTheme} 
+              isDarkMode={isDarkMode} 
+              isOpen={isSidebarOpen}
+              onClose={closeSidebar}
+              onNavigate={handleNavigate}
+              currentPage={currentPage}
+              isDetailPage={currentPage === 'market'}
+              isCollapsed={isSidebarCollapsed}
+            />
+
+            {/* Main Content Area */}
+            <div 
+              className="flex-1 flex flex-col min-w-0 content-area-scroll md:mt-[var(--gap--0-75rem)] md:mx-[var(--gap--0-5rem)] md:mb-[var(--gap--0-5rem)] md:border md:border-[var(--border)] md:rounded-[var(--border-radius--1rem)] md:shadow-[var(--shadow-1)] border-0 rounded-0 shadow-none"
+              style={{
+                background: 'radial-gradient(240% 160% at 180% 100%,hsl(from var(--lum-02) h s l) 0,hsl(from var(--sage-2) h s l) 56.68%,hsl(from var(--lum-02) h s l) 100%),hsl(from var(--mauve-1) h s l)',
+              }}
+            >
+              {/* Scrollable Content Container with Suspense for all lazy loaded components */}
+              <Suspense fallback={
+                <div className="flex items-center justify-center h-full">
+                  <p style={{ 
+                    fontSize: 'var(--text-sm)', 
+                    fontWeight: 'var(--font-weight-medium)',
+                    color: 'var(--muted-foreground)'
+                  }}>
+                    Loading...
+                  </p>
+                </div>
+              }>
+                {currentPage === 'design-system' ? (
+                  <DesignSystemPage />
+                ) : currentPage === 'sports' ? (
+                  <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                    <Sports />
+                  </main>
+                ) : currentPage === 'watchlist' ? (
+                  <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                    <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
+                      <Watchlist onMarketSelect={handleMarketSelect} />
+                    </div>
+                  </main>
+                ) : (
+                  <main 
+                    ref={mainScrollRef}
+                    className="flex-1 overflow-y-auto overflow-x-hidden"
+                    style={{
+                      transition: 'opacity 0.3s ease-in-out'
+                    }}
+                  >
+                    <div className="w-full max-w-[1280px] mx-auto px-[var(--gap--1rem)] sm:px-6 lg:px-8" style={{ paddingTop: '48px', paddingBottom: 'var(--gap--0-5rem)' }}>
+                      {currentPage === 'market' && selectedMarket ? (
+                        <MarketDetails 
+                          market={selectedMarket} 
+                          onBack={handleBackToHome} 
+                        />
+                      ) : (
+                        <HomePage onMarketSelect={handleMarketSelect} />
+                      )}
+                    </div>
+                  </main>
+                )}
+              </Suspense>
+            </div>
           </div>
         </div>
-      </div>
+      </SavedMarketsProvider>
     </BalanceProvider>
   );
 }

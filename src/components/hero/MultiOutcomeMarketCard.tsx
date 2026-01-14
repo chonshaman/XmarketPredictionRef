@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-import { Bookmark } from "lucide-react";
 import svgPaths from "../../imports/svg-08dg7pjb6g";
 import { motion, AnimatePresence } from 'motion/react';
 import type { Market } from "../../data/markets";
 import { getRandomUsername } from '../../utils/format';
+import { useSavedMarkets } from '../../context/SavedMarketsContext';
+import { SaveIcon } from '../SaveIcon';
 
 interface MultiOutcomeMarketCardProps extends Market {
   onMarketSelect?: (market: Market) => void;
@@ -13,6 +14,10 @@ interface MultiOutcomeMarketCardProps extends Market {
 export function MultiOutcomeMarketCard(market: MultiOutcomeMarketCardProps) {
   const { onMarketSelect } = market;
   const [isHovered, setIsHovered] = useState(false);
+
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(market.id);
 
   const handleCardClick = () => {
     if (onMarketSelect) {
@@ -125,7 +130,12 @@ export function MultiOutcomeMarketCard(market: MultiOutcomeMarketCardProps) {
                   </p>
                 </div>
               </div>
-              <Bookmark className="w-4 h-4 text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors" />
+              <SaveIcon 
+                isSaved={isSaved}
+                isHovered={isHovered}
+                onToggle={() => toggleSavedMarket(market.id)}
+                rightOffset={10}
+              />
             </div>
 
             {/* Question */}

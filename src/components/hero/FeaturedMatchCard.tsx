@@ -3,6 +3,8 @@ import { ImageWithFallback } from '../figma/ImageWithFallback';
 import svgPaths from '../../imports/svg-08dg7pjb6g';
 import type { Match } from '../../data/matches';
 import { getRandomUsername } from '../../utils/format';
+import { useSavedMarkets } from '../../context/SavedMarketsContext';
+import { SaveIcon } from '../SaveIcon';
 
 // ============================================================================
 // TYPES
@@ -226,6 +228,10 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
   // Generate a deterministic username based on match ID
   const username = useMemo(() => getRandomUsername(match?.id || 'default'), [match?.id]);
 
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(match?.id || '');
+
   const handleCardMouseEnter = useCallback(() => setIsCardHovered(true), []);
   const handleCardMouseLeave = useCallback(() => setIsCardHovered(false), []);
 
@@ -304,6 +310,18 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
           }}
         />
 
+        {/* Save Icon - inside card content, appears on hover at top right corner */}
+        <div className="absolute top-0 left-0 right-0 bottom-0 z-50 pointer-events-none">
+          <div className="pointer-events-auto">
+            <SaveIcon 
+              isSaved={isSaved}
+              isHovered={isCardHovered}
+              onToggle={() => toggleSavedMarket(match.id)}
+              rightOffset={10}
+            />
+          </div>
+        </div>
+
         {/* Content */}
         <div className="relative z-10 w-[86%] mx-auto py-5 flex flex-col gap-4"
           onMouseEnter={handleCardMouseEnter}
@@ -311,7 +329,7 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
         >
           <div>
             {/* Header */}
-            <div className="flex items-center justify-between mb-[10px] sm:mb-[12px]">
+            <div className="flex items-center gap-[10px] sm:gap-[12px] mb-[10px] sm:mb-[12px]">
               <div className="bg-accent flex items-center justify-center px-[10px] sm:px-[12px] py-[3px] sm:py-[4px] rounded-[var(--radius-input)] shrink-0">
                 <p 
                   className="font-sans text-muted-foreground text-nowrap"

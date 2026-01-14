@@ -8,6 +8,8 @@ import { cn } from './ui/utils';
 import { OutcomeButtons } from './OutcomeButtons';
 import type { Market } from '../data/markets';
 import { getRandomUsername } from '../utils/format';
+import { useSavedMarkets } from '../context/SavedMarketsContext';
+import { SaveIcon } from './SaveIcon';
 
 interface MarketCardProps extends Market {
   onClick?: () => void;
@@ -23,6 +25,10 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Use saved markets context
+  const { isSaved: isMarketSaved, toggleSavedMarket } = useSavedMarkets();
+  const isSaved = isMarketSaved(market.id);
 
   // Generate a deterministic username based on market ID
   const username = useMemo(() => getRandomUsername(market.id), [market.id]);
@@ -101,6 +107,14 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
         boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)'
       }}
     >
+      {/* Save Icon - appears on hover at top right corner */}
+      <SaveIcon 
+        isSaved={isSaved}
+        isHovered={isHovered}
+        onToggle={() => toggleSavedMarket(market.id)}
+        rightOffset={10}
+      />
+
       <div className="p-3 sm:p-[16px] flex flex-col flex-1 justify-between">
         <div>
         {/* Category and Time */}

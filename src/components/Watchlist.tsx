@@ -1,11 +1,12 @@
 import { Bookmark } from 'lucide-react';
 import { MarketCard } from './MarketCard';
 import { HomeMatchCard } from './sports/HomeMatchCard';
-import { featuredMarkets, multiOutcomeMarkets } from '../data/markets';
+import { featuredMarkets, multiOutcomeMarkets, endingSoonMarkets, heroCarouselMarkets } from '../data/markets';
 import { allMatches } from '../data/matches';
 import { memo, useMemo } from 'react';
 import type { Market } from '../data/markets';
 import type { Match } from '../data/matches';
+import { useSavedMarkets } from '../context/SavedMarketsContext';
 
 interface WatchlistProps {
   onMarketSelect?: (market: Market) => void;
@@ -16,27 +17,32 @@ type WatchlistItem =
   | { type: 'match'; data: Match };
 
 export const Watchlist = memo(function Watchlist({ onMarketSelect }: WatchlistProps) {
-  // Select 4 general markets, 2 multi-outcome markets, and 3 sport matches
-  const generalMarkets = featuredMarkets.slice(0, 4);
-  const multiMarkets = multiOutcomeMarkets.slice(0, 2);
-  const sportMatches = allMatches.slice(0, 3); // First 3 sport matches
-
-  // Mix all items randomly
+  // Get saved markets from context
+  const { savedMarkets } = useSavedMarkets();
+  
+  // Get all available markets and matches
+  const allMarkets = useMemo(() => [
+    ...heroCarouselMarkets,
+    ...featuredMarkets,
+    ...endingSoonMarkets,
+    ...multiOutcomeMarkets
+  ], []);
+  
+  // Filter saved markets
+  const savedMarketsList = useMemo(() => {
+    return allMarkets.filter(market => savedMarkets.has(market.id));
+  }, [allMarkets, savedMarkets]);
+  
+  // For demo purposes, if no markets are saved, show some sample markets
+  const displayMarkets = savedMarketsList.length > 0 ? savedMarketsList : featuredMarkets.slice(0, 6);
+  
+  // Mix markets with potential sport matches (future enhancement)
   const mixedItems = useMemo(() => {
-    const items: WatchlistItem[] = [
-      ...generalMarkets.map(m => ({ type: 'market' as const, data: m })),
-      ...multiMarkets.map(m => ({ type: 'market' as const, data: m })),
-      ...sportMatches.map(m => ({ type: 'match' as const, data: m }))
-    ];
+    const items: WatchlistItem[] = displayMarkets.map(m => ({ type: 'market' as const, data: m }));
     
-    // Shuffle the items
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    
+    // No need to shuffle for saved markets - keep them in order
     return items;
-  }, [generalMarkets, multiMarkets, sportMatches]);
+  }, [displayMarkets]);
 
   return (
     <div className="flex flex-col w-full max-w-[1296px] mx-auto">
