@@ -1,10 +1,11 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import svgPaths from '../imports/svg-08dg7pjb6g';
-import { useState, useRef, lazy, Suspense, memo, useCallback } from 'react';
+import { useState, useRef, lazy, Suspense, memo, useCallback, useMemo } from 'react';
 // Lazy load QuickBuyModal since it's only shown on demand
 const QuickBuyModal = lazy(() => import('./QuickBuyModal').then(module => ({ default: module.QuickBuyModal })));
 import { motion, AnimatePresence } from 'motion/react';
 import type { Market } from '../data/markets';
+import { getRandomUsername } from '../utils/format';
 
 interface EndingSoonMarketCardProps extends Market {
   onClick?: () => void;
@@ -19,6 +20,9 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Generate a deterministic username based on market ID
+  const username = useMemo(() => getRandomUsername(market?.id || 'default'), [market?.id]);
 
   const handleSuccess = () => {
     setShowSuccessMessage(true);
@@ -363,61 +367,86 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
           </div>
         </div>
 
-        {/* Footer - Participants and Volume */}
+        {/* Footer */}
         <div className="flex items-center justify-between relative min-h-[20px]">
-          {/* Left Side: Participants / Avatars Swap */}
+          {/* Left Side: Username / Avatars Swap */}
           <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
-            {/* Participants - Default State */}
+            {/* Username - Default State */}
             <div className="col-start-1 row-start-1 flex items-center transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
-               <p 
-                 className="font-sans text-muted-foreground text-nowrap whitespace-pre"
-                 style={{
-                   fontSize: 'var(--text-xs)',
-                   fontWeight: 'var(--font-weight-medium)',
-                   lineHeight: '20px'
-                 }}
-               >
-                 {market.stats.participantsFormatted} participants
-               </p>
+              <p 
+                className="font-sans text-nowrap"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  lineHeight: '20px',
+                  color: 'var(--muted-foreground)'
+                }}
+              >
+                By{' '}
+                <span style={{ color: 'var(--foreground)' }}>@{username}</span>
+              </p>
             </div>
-             
-            {/* Avatars - Hover State */}
+            
+            {/* Avatars + Comments - Hover State */}
             <div className="col-start-1 row-start-1 flex items-center gap-1.5 transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-               <div className="flex -space-x-1.5">
-                  {avatars.map((initial, i) => (
-                    <div 
-                      key={i}
-                      className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white ring-2"
-                      style={{ 
-                        backgroundColor: avatarColors[i],
-                        ringColor: 'var(--lum-01)',
-                        fontSize: 'var(--text-xxs)'
-                      }}
-                    >
-                      {initial}
-                    </div>
-                  ))}
-               </div>
-               <span 
-                 className="bg-[var(--secondary)] text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap"
-                 style={{ fontSize: 'var(--text-xxs)' }}
-               >
-                 {comments}
-               </span>
+              <div className="flex -space-x-1.5">
+                {avatars.map((initial, i) => (
+                  <div 
+                    key={i}
+                    className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white ring-1"
+                    style={{ 
+                      backgroundColor: avatarColors[i],
+                      ringColor: 'var(--lum-12)',
+                      fontSize: 'var(--text-xxs)'
+                    }}
+                  >
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <span 
+                className="text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap"
+                style={{ 
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  backgroundColor: 'var(--black-a1)'
+                }}
+              >
+                {comments}
+              </span>
             </div>
           </div>
 
-          {/* Volume */}
-          <p 
-            className="font-sans text-muted-foreground text-nowrap whitespace-pre"
-            style={{
-              fontSize: 'var(--text-xs)',
-              fontWeight: 'var(--font-weight-medium)',
-              lineHeight: '20px'
-            }}
-          >
-            {market.stats.volumeFormatted} Vol.
-          </p>
+          {/* Right Side: Volume / Participants Swap */}
+          <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
+            {/* Volume - Default State */}
+            <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+              <p 
+                className="font-sans text-muted-foreground text-nowrap text-right"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  lineHeight: '20px'
+                }}
+              >
+                {market.stats.volumeFormatted} Vol.
+              </p>
+            </div>
+
+            {/* Participants - Hover State */}
+            <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+              <p 
+                className="font-sans text-muted-foreground text-nowrap text-right"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  lineHeight: '20px'
+                }}
+              >
+                {market.stats.participantsFormatted} participants
+              </p>
+            </div>
+          </div>
           
           {/* Success Message Overlay */}
           <AnimatePresence>

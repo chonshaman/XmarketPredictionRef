@@ -469,10 +469,11 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                       {avatars.map((initial, i) => (
                         <div 
                           key={i}
-                          className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-semibold text-white ring-2"
+                          className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white ring-1"
                           style={{ 
                             backgroundColor: avatarColors[i],
-                            ringColor: 'var(--lum-01)'
+                            ringColor: 'var(--lum-12)',
+                            fontSize: 'var(--text-xxs)'
                           }}
                         >
                           {initial}
