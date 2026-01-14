@@ -132,3 +132,42 @@ export function getRandomColor(seed?: number): string {
   const index = seed !== undefined ? seed % colors.length : Math.floor(Math.random() * colors.length);
   return colors[index];
 }
+
+/**
+ * Format volume with K/M suffix
+ * @param volume - Volume to format
+ * @returns Formatted string (e.g., "1.5K", "2.3M")
+ */
+export function formatVolume(volume: number): string {
+  if (volume >= 1000000) {
+    return `${(volume / 1000000).toFixed(1)}M`;
+  }
+  if (volume >= 1000) {
+    return `${(volume / 1000).toFixed(1)}K`;
+  }
+  return volume.toString();
+}
+
+// Generate a random username for "By @username" display
+const RANDOM_USERNAMES = [
+  'cryptoking', 'moonshot', 'tradepro', 'marketguru', 'bullrun',
+  'bearwatch', 'hodlmaster', 'whalewatch', 'alphatrader', 'diamondhands',
+  'stonkslover', 'futurecast', 'prophecy', 'trendmaster', 'visionpro',
+  'datawizard', 'chartking', 'insiderviews', 'smartmoney', 'edgefinder',
+  'riskmaster', 'valuehunter', 'momentumking', 'patternseeker', 'oddschaser'
+];
+
+export function getRandomUsername(seed?: string): string {
+  // Use seed to make it deterministic for a given market/card
+  if (seed) {
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    const index = Math.abs(hash) % RANDOM_USERNAMES.length;
+    return RANDOM_USERNAMES[index];
+  }
+  // Random if no seed provided
+  return RANDOM_USERNAMES[Math.floor(Math.random() * RANDOM_USERNAMES.length)];
+}

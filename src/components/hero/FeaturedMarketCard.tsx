@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
+import React, { useState, useRef, useEffect, memo, useCallback, useMemo } from 'react';
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { Bookmark, X } from "lucide-react";
 import { cn } from "../ui/utils";
@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import type { Market } from "../../data/markets";
 import { PrimaryButton } from "../PrimaryButton";
 import { useBalance } from '../../contexts/BalanceContext';
+import { getRandomUsername } from '../../utils/format';
 
 interface FeaturedMarketCardProps extends Market {
   isQuickBuyOpen?: boolean;
@@ -142,6 +143,9 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
   const avatars = market.recentUsers?.map(u => u.initials) || ["CN", "LA"];
   const avatarColors = market.recentUsers?.map(u => u.color) || ["#8145b5", "#16433c"];
   const comments = market.stats.commentsFormatted ? `${market.stats.commentsFormatted} comments` : "+100 comments";
+
+  // Generate a deterministic username based on market ID
+  const username = useMemo(() => getRandomUsername(market.id), [market.id]);
 
   return (
     <div 
@@ -445,19 +449,27 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
 
               {/* Stats Footer */}
               <div className="flex items-center justify-between text-[12px] font-medium text-[var(--muted-foreground)] relative min-h-[20px]">
+                {/* Left Side: Username / Avatars Swap */}
                 <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
+                  {/* Username - Default State */}
                   <div className="col-start-1 row-start-1 flex items-center transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
-                    <span>{market.stats.participantsFormatted} participants</span>
+                    <span style={{ 
+                      color: 'var(--muted-foreground)',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: 'var(--font-weight-medium)'
+                    }}>
+                      By{' '}
+                      <span style={{ color: 'var(--foreground)' }}>@{username}</span>
+                    </span>
                   </div>
                   
+                  {/* Avatars + Comments - Hover State */}
                   <div className="col-start-1 row-start-1 flex items-center gap-1.5 transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
                     <div className="flex -space-x-1.5">
                       {avatars.map((initial, i) => (
                         <div 
                           key={i}
-                          className={cn(
-                            "w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-semibold text-white ring-2"
-                          )}
+                          className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-semibold text-white ring-2"
                           style={{ 
                             backgroundColor: avatarColors[i],
                             ringColor: 'var(--lum-01)'
@@ -467,12 +479,30 @@ export const FeaturedMarketCard = memo(function FeaturedMarketCard(market: Featu
                         </div>
                       ))}
                     </div>
-                    <span className="text-[10px] bg-[var(--secondary)] text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap">{comments}</span>
+                    <span 
+                      className="text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap"
+                      style={{ 
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: 'var(--font-weight-medium)',
+                        backgroundColor: 'var(--black-a1)'
+                      }}
+                    >
+                      {comments}
+                    </span>
                   </div>
                 </div>
 
-                <div>
-                  <span>{market.stats.volumeFormatted} Vol.</span>
+                {/* Right Side: Volume / Participants Swap */}
+                <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
+                  {/* Volume - Default State */}
+                  <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+                    <span className="text-right">{market.stats.volumeFormatted} Vol.</span>
+                  </div>
+
+                  {/* Participants - Hover State */}
+                  <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                    <span className="text-right">{market.stats.participantsFormatted} participants</span>
+                  </div>
                 </div>
 
                 {/* Success Message */}

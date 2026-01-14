@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, memo } from 'react';
 import svgPaths from '../../imports/svg-08dg7pjb6g';
 import type { Match } from '../../data/matches';
+import { getRandomUsername } from '../../utils/format';
 
 // ============================================================================
 // TYPES
@@ -236,6 +237,9 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [selectedOdds, setSelectedOdds] = useState<OddsType | null>(null);
 
+  // Generate a deterministic username based on match ID
+  const username = useMemo(() => getRandomUsername(match?.id || 'default'), [match?.id]);
+
   // Memoized callbacks
   const handleCardMouseEnter = useCallback(() => setIsCardHovered(true), []);
   const handleCardMouseLeave = useCallback(() => setIsCardHovered(false), []);
@@ -370,23 +374,25 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
 
         {/* Footer */}
         <div className="flex items-center justify-between relative min-h-[20px]">
-          {/* Left Side: Participants / Avatars Swap */}
+          {/* Left Side: Username / Avatars Swap */}
           <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
-            {/* Participants - Default State */}
+            {/* Username - Default State */}
             <div className="col-start-1 row-start-1 flex items-center transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
               <p 
-                className="font-sans text-muted-foreground text-nowrap"
+                className="font-sans text-nowrap"
                 style={{
                   fontSize: 'var(--text-xs)',
                   fontWeight: 'var(--font-weight-medium)',
-                  lineHeight: '20px'
+                  lineHeight: '20px',
+                  color: 'var(--muted-foreground)'
                 }}
               >
-                {MOCK_PARTICIPANTS} participants
+                By{' '}
+                <span style={{ color: 'var(--foreground)' }}>@{username}</span>
               </p>
             </div>
             
-            {/* Avatars - Hover State */}
+            {/* Avatars + Comments - Hover State */}
             <div className="col-start-1 row-start-1 flex items-center gap-1.5 transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
               <div className="flex -space-x-1.5">
                 {MOCK_AVATARS.map((initial, i) => (
@@ -404,25 +410,48 @@ export const HomeMatchCard = memo(({ match, onOddsClick, onClick }: HomeMatchCar
                 ))}
               </div>
               <span 
-                className="bg-[var(--secondary)] text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap"
-                style={{ fontSize: 'var(--text-xxs)' }}
+                className="text-[var(--secondary-foreground)] px-1.5 py-0.5 rounded-full whitespace-nowrap"
+                style={{ 
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  backgroundColor: 'var(--black-a1)'
+                }}
               >
                 {MOCK_COMMENTS}
               </span>
             </div>
           </div>
 
-          {/* Volume */}
-          <p 
-            className="font-sans text-muted-foreground text-nowrap"
-            style={{
-              fontSize: 'var(--text-xs)',
-              fontWeight: 'var(--font-weight-medium)',
-              lineHeight: '20px'
-            }}
-          >
-            {match.volume} Vol.
-          </p>
+          {/* Right Side: Volume / Participants Swap */}
+          <div className="grid grid-cols-1 grid-rows-1 items-center overflow-hidden">
+            {/* Volume - Default State */}
+            <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+              <p 
+                className="font-sans text-muted-foreground text-nowrap text-right"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  lineHeight: '20px'
+                }}
+              >
+                {match.volume} Vol.
+              </p>
+            </div>
+
+            {/* Participants - Hover State */}
+            <div className="col-start-1 row-start-1 flex items-center justify-end transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+              <p 
+                className="font-sans text-muted-foreground text-nowrap text-right"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  lineHeight: '20px'
+                }}
+              >
+                {MOCK_PARTICIPANTS} participants
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
