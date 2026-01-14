@@ -69,7 +69,7 @@ export function MatchCard({
         background: isHovered ? 'var(--card-hover)' : 'var(--card-normal)',
         border: '1px solid var(--black-a1)',
         borderRadius: 'var(--radius-xl)',
-        boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)',
+        boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-2)',
         padding: '20px',
         transform: isHovered ? 'translateY(-4px)' : 'translateY(0)'
       }}

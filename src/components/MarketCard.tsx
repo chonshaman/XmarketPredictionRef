@@ -97,7 +97,7 @@ export const MarketCard = memo(function MarketCard(props: MarketCardProps) {
       className="rounded-[var(--radius-xl)] overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1 group relative flex flex-col"
       style={{ 
         background: isHovered ? 'var(--card-hover)' : 'var(--card-normal)',
-        border: '1px solid var(--black-a1)',
+        border: '1px solid var(--black-a2)',
         boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)'
       }}
     >

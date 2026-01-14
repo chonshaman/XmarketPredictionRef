@@ -5801,9 +5801,9 @@
   --backdrop-filter--blur-24px-: 24px;
   --backdrop-filter--blur-40px-: 40px;
   --backdrop-filter--blur-64px-: 64px;
-  --shadow-1: 0px 2px 4px 0px #0000000d;
-  --shadow-2: 0px 4px 6px 0px #0000001a;
-  --shadow-3: 0px 12px 16px 0px #0000001f;
+  --shadow-1: 0px 3px 4px 1px #0000000a;
+  --shadow-2: 0px 4px 8px 0px #00000024;
+  --shadow-3: 0px 12px 16px 2px #0000001f;
   --shadow-4: 0 3px 4px 0 #0000000a;
   --stroke-l: 2;
   --stroke-m: 1.4px;
