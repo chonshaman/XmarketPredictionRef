@@ -275,7 +275,7 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
       style={{ 
         borderRadius: 'var(--radius-card)',
         border: '1px solid var(--black-a1)',
-        boxShadow: 'var(--shadow-2)',
+        boxShadow: isCardHovered ? 'var(--shadow-3)' : 'var(--shadow-2)',
       }}
     >
       {/* Full Background Image */}
@@ -422,11 +422,11 @@ export const FeaturedMatchCard = memo(({ match, onOddsClick, onClick }: Featured
                   {MOCK_AVATARS.map((initial, i) => (
                     <div 
                       key={`${initial}-${i}`}
-                      className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white ring-1"
+                      className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white"
                       style={{ 
                         backgroundColor: MOCK_AVATAR_COLORS[i],
-                        ringColor: 'var(--lum-12)',
-                        fontSize: 'var(--text-xxs)'
+                        fontSize: 'var(--text-xxs)',
+                        border: '1px solid var(--lum-12)'
                       }}
                     >
                       {initial}

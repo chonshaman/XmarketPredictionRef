@@ -72,16 +72,12 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="overflow-hidden transition-all duration-300 ease-out cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.08),0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.28)] hover:-translate-y-1 group"
+      className="flex gap-3 p-3 sm:p-[16px] overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1 group"
       style={{ 
         background: isHovered ? 'var(--card-hover)' : 'var(--card-normal)',
         border: '1px solid var(--black-a1)',
         borderRadius: 'var(--radius-xl)',
-        padding: '16px',
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 'var(--gap--1rem)',
-        height: '204px',
+        boxShadow: isHovered ? 'var(--shadow-3)' : 'var(--shadow-1)'
       }}
     >
       {/* Left Column - Image */}
@@ -393,11 +389,11 @@ export const EndingSoonMarketCard = memo(function EndingSoonMarketCard(props: En
                 {avatars.map((initial, i) => (
                   <div 
                     key={i}
-                    className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white ring-1"
+                    className="w-4 h-4 rounded-full flex items-center justify-center font-semibold text-white"
                     style={{ 
                       backgroundColor: avatarColors[i],
-                      ringColor: 'var(--lum-12)',
-                      fontSize: 'var(--text-xxs)'
+                      fontSize: 'var(--text-xxs)',
+                      border: '1px solid var(--lum-12)'
                     }}
                   >
                     {initial}
