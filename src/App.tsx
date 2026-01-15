@@ -123,7 +123,7 @@ export default function App() {
         <div 
           className="flex flex-col h-screen" 
           style={{ 
-            background: 'radial-gradient(45.34% 38.93% at 0 4.95%, var(--blue-3) 0, var(--white-a1) 100%), linear-gradient(180deg, var(--lum-03) -.44%, var(--lum-02) 56.31%), var(--lum-01)'
+            background: 'radial-gradient(80% 48% at 0 6%, var(--blue-2) 0, var(--blue-1) 100%), linear-gradient(180deg, var(--lum-03) -.44%, var(--lum-02) 56.31%), var(--lum-01)'
           }}
         >
           {/* Header - Full Width */}
@@ -152,7 +152,7 @@ export default function App() {
             <div 
               className="flex-1 flex flex-col min-w-0 content-area-scroll md:mt-[var(--gap--0-75rem)] md:mx-[var(--gap--0-5rem)] md:mb-[var(--gap--0-5rem)] md:border md:border-[var(--black-a1)] md:rounded-[var(--border-radius--1rem)] md:shadow-[var(--shadow-1)] border-0 rounded-0 shadow-none"
               style={{
-                background: 'radial-gradient(240% 160% at 180% 100%, var(--lum-02) 0, var(--lum-03) 56.68%, var(--lum-02) 100%), var(--lum-01)',
+                background: 'radial-gradient(240% 160% at 180% 100%,hsl(from var(--lum-02) h s l) 0,hsl(from var(--sage-2) h s l) 56.68%,hsl(from var(--lum-02) h s l) 100%),hsl(from var(--mauve-1) h s l)',
               }}
             >
               {/* Scrollable Content Container with Suspense for all lazy loaded components */}
