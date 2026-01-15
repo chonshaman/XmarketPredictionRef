@@ -123,7 +123,7 @@ export default function App() {
         <div 
           className="flex flex-col h-screen" 
           style={{ 
-            background: 'radial-gradient(80% 48% at 0 6%, var(--blue-2) 0, var(--blue-1) 100%), linear-gradient(180deg, var(--lum-03) -.44%, var(--lum-02) 56.31%), var(--lum-01)'
+            background: 'radial-gradient(80% 48% at 0 6%, var(--blue-2) 0, var(--white-a1) 100%), linear-gradient(180deg, var(--lum-03) -.44%, var(--lum-02) 56.31%), var(--lum-01)'
           }}
         >
           {/* Header - Full Width */}
